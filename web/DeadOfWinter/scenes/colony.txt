@@ -4,7 +4,7 @@
 *set round_turn_zombie_need round_turn_food_need
 第 ${round_play+1} 日，避難所大廳
 
-有 ${current_helpless_survivor} 位無助生存者和 ${current_action_survivor} 有行動能力生存者在這邊。
+有 ${current_helpless_survivor} 位無助幸存者和 ${current_action_survivor} 幸存者在這邊。
 *if (current_colony_food>=round_turn_food_need)
   在食物儲藏室的食物供給足夠。
 *if (current_colony_food<round_turn_food_need)
@@ -32,6 +32,9 @@
 *temp trash_increase 1
 
 *choice
+  *if (has_gathering = false) #第一次認識所有倖存者
+    *set has_gathering true
+    *goto_scene gathering  
   #前院檢查柵欄
     *gosub colony_border
   *selectable_if (current_colony_zombies_count>0) #外圍攻擊殭屍
@@ -42,7 +45,6 @@
     *gosub food_shelf_room  
   #離開避難所，外出行動
     *goto_scene area_move   
-    
   #休息，本日結束
     *goto_scene check
 
@@ -105,6 +107,11 @@
 *temp give_food 0
 
 *choice
+  *if (((has_use_cooking_mom=false) and (is_cooking_mom=true)) and (action_per_round>0)) #廚師佳餚
+    *set current_colony_food current_colony_food+2
+    *set action_per_round action_per_round-1
+    *set has_use_cooking_mom true
+    *gosub finish_cook_food
   *selectable_if (food_for_player > 0) #提供食物
     你擁有 ${food_for_player} 份隨行食物，想要提供多少呢。
 
@@ -125,6 +132,12 @@
         
 *label finish_give_food
 你提供了 ${give_food} 份食物到食物供給堆上，且丟了 ${trash_increase} 份垃圾。
+*choice
+  #完成
+    *gosub food_shelf_room
+    
+*label finish_cook_food
+花費了 1 次行動，提供了 2 份食物到食物供給堆上。
 *choice
   #完成
     *gosub food_shelf_room

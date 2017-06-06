@@ -90,6 +90,11 @@
 *create search_items_count 1
 *create remove_trash_count 3
 *create current_action_survivor 3
+*create is_cooking_mom false
+*create has_use_cooking_mom false
+*create addition_food_get 0
+*create addition_tool_get 0
+*create addition_medicine_get 0
 *create fuel_for_player 0
 *create food_for_player 0
 *create tool_for_player 0
@@ -107,6 +112,8 @@
 *create has_use_rifle false
 *create has_use_shotgun false
 *create has_use_knife false
+
+*create has_gathering false
 
 Welcome to your very first ChoiceScript game!
 
@@ -172,6 +179,9 @@ either express or implied.
     *set current_helpless_survivor (current_action_survivor/2)+3
     *set current_colony_zombies_count 6
     *set scence_play "B"
+    *set food_for_player 2
+    *set fuel_for_player 1
+    *set tool_for_player 1
     *set action_per_round current_action_survivor+1
     
     序：上帝幫幫我們吧，我最近越來越喪氣，我們供應食物不夠，我知道這想法是錯誤，但是這裡面有些的一技之長根本已經不管用了。
@@ -196,6 +206,10 @@ either express or implied.
     *set less_police_zombie_count less_each_area_zombie_count
     *set less_grocery_zombie_count less_each_area_zombie_count
     *set less_gas_station_zombie_count less_each_area_zombie_count
+    *set action_per_round current_action_survivor+1
+    *set food_for_player 2
+    *set fuel_for_player 1
+    *set tool_for_player 1
     
     序：我們的家園目前算安全，但是這只是短暫一時。要趁現在還有時間與能力往外探索。
     
