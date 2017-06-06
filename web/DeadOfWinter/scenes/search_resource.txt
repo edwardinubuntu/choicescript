@@ -4,23 +4,24 @@
 *temp area_name ""
 
 *if (user_stay_area = "police station")
-  *set area_name "警察局"
-  *gosub search_police_station
-*elseif (user_stay_area = "grocery store")
-  *set area_name "雜貨店"
-  *gosub search_grocery_store
-*elseif (user_stay_area = "gas station")
-  *set area_name "加油站"
-  *gosub search_gas_station  
+    *set area_name "警察局"
+*if (user_stay_area = "grocery store")
+    *set area_name "雜貨店"
+*if (user_stay_area = "gas station")
+    *set area_name "加油站"
 
-*label item
-你在 ${area_name} 找尋可以用的資源。獲得了 ${items_get} 物品。
-*set action_per_round action_per_round-1
-你的行動剩下 ${action_per_round}。
-
+${area_name} 
 *choice
-  *selectable_if (action_per_round>0) #繼續搜索
-    *goto start
+  *selectable_if (action_per_round>0) #一般搜索
+    *if (user_stay_area = "police station")
+      *set area_name "警察局"
+      *gosub search_police_station
+    *elseif (user_stay_area = "grocery store")
+      *set area_name "雜貨店"
+      *gosub search_grocery_store
+    *elseif (user_stay_area = "gas station")
+      *set area_name "加油站"
+      *gosub search_gas_station  
   #結束搜索
     *if (user_stay_area = "police station") 
       *goto_scene area_police_station
@@ -28,6 +29,15 @@
       *goto_scene area_grocery_store
     *if (user_stay_area = "gas station") 
       *goto_scene area_gas_station
+
+*label item
+你在 ${area_name} 找尋可以用的資源。獲得了 ${items_get} 物品。
+*set action_per_round action_per_round-1
+你的行動剩下 ${action_per_round}。
+
+*choice
+  #搜索完成
+    *goto start
       
 *label search_police_station
 *if (action_per_round>0)
@@ -63,8 +73,7 @@
     *set items_get "${items_get} 醫療用品 ${fuel_get}"
     *goto item
   *else
-    *set items_get "0"
-    *goto item  
+    *gosub  find_survior  
   
 *label search_grocery_store
 *if (action_per_round>0)
@@ -85,8 +94,7 @@
     *set items_get "${items_get} 醫療用品 ${medicine_get}"
     *goto item
   *else
-    *set items_get "0"
-    *goto item  
+    *gosub  find_survior  
 
 *label search_gas_station
 *if (action_per_round>0)
@@ -108,5 +116,19 @@
     *set items_get "${items_get} 食物 ${food_get}"
     *goto item
   *else
+    *gosub  find_survior
+    
+*label find_survior
+*rand die_roll 1 3
+*temp helpless_survior 1
+*temp action_survior die_roll
+找到了 ${action_survior} 位倖存者和 ${helpless_survior} 無助倖存者
+*choice
+  # 邀請他們加入
+    *set current_helpless_survivor current_helpless_survivor+helpless_survior
+    *set current_action_survivor current_action_survivor+action_survior
+    *set items_get "${action_survior} 位倖存者和 ${helpless_survior} 無助倖存者"
+    *goto item
+  # 不想邀請
     *set items_get "0"
-    *goto item  
+    *goto item

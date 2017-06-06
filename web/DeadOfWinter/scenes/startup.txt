@@ -140,11 +140,11 @@ either express or implied.
     *set Round 6
     *set Morale 60
     *temp needed_each_area_barricade_count 1
-    *set needed_colony_barricade_count 10
+    *set needed_colony_barricade_count 6
     *set needed_police_station_barricade_count needed_each_area_barricade_count
     *set needed_grocery_store_barricade_count needed_each_area_barricade_count
     *set needed_gas_station_barricade_count needed_each_area_barricade_count
-    *set current_action_survivor 4
+    *set current_action_survivor 2
     *set current_helpless_survivor 1
     *set current_colony_zombies_count 12
     *set current_grocery_store_zombies_count 1
@@ -166,8 +166,8 @@ either express or implied.
     *set Round 7
     *set round_need_to_play 5
     *set Morale 50
-    *set current_action_survivor 3
-    *set current_helpless_survivor current_action_survivor+3
+    *set current_action_survivor 2
+    *set current_helpless_survivor (current_action_survivor/2)+3
     *set current_colony_zombies_count 6
     *set scence_play "B"
     *set action_per_round current_action_survivor+1
