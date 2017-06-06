@@ -1,0 +1,205 @@
+*comment Copyright 2010 by Dan Fabulich.
+*comment 
+*comment Dan Fabulich licenses this file to you under the
+*comment ChoiceScript License, Version 1.0 (the "License"); you may
+*comment not use this file except in compliance with the License. 
+*comment You may obtain a copy of the License at
+*comment 
+*comment  http://www.choiceofgames.com/LICENSE-1.0.txt
+*comment 
+*comment See the License for the specific language governing
+*comment permissions and limitations under the License.
+*comment 
+*comment Unless required by applicable law or agreed to in writing,
+*comment software distributed under the License is distributed on an
+*comment "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+*comment either express or implied.
+
+*title 死亡寒冬
+*author Edward Chiang
+*scene_list
+  startup
+  colony
+  area_police_station
+  area_gas_station
+  area_grocery_station
+  winning
+  ending
+  death
+  check
+
+*create round_play 0
+*create round_need_to_play 0
+*create scence_play 0
+*create Round 5
+*create Morale 50
+*create die_roll 0
+*create move_die_min 1
+*create move_die_max 12
+*create move_safe_below 8
+*create move_hurt 11
+*create move_hurt_kill 12
+
+*comment  Winning stat
+*create needed_colony_barricade_count 0
+*create needed_police_station_barricade_count 0
+*create needed_grocery_store_barricade_count 0
+*create needed_gas_station_barricade_count 0
+
+*create less_colony_zombie_count 99
+*create less_police_zombie_count 10
+*create less_grocery_zombie_count 10
+*create less_gas_station_zombie_count 10
+*create less_each_area_zombie_count 10
+
+*comment Init stat
+*create max_colony_entrance_count 18
+*create max_trash_count 10
+*create current_colony_zombies_count 0
+*create current_colony_barricade_count 0
+*create starving 0
+*create round_turn_food_need 0
+*create round_turn_zombie_need 0
+
+*create max_police_station_entrance_count 4
+*create current_police_station_barricade_count 0
+*create current_police_station_zombies_count 0
+*create resource_police_station_left 20
+
+*create max_grocery_store_entrance_count 4
+*create current_grocery_store_barricade_count 0
+*create current_grocery_store_zombies_count 0
+*create resource_grocery_store_left 20
+
+*create max_gas_station_entrance_count 4
+*create current_gas_station_barricade_count 0
+*create current_gas_station_zombies_count 0
+*create resource_gas_station_left 20
+
+*comment Colony
+*create current_helpless_survivor 0
+*create current_action_survivor 0
+*create current_colony_food 0
+*create current_trash 0
+
+*comment Player
+*create lose_blood 0
+*create action_per_round 3
+*create build_barricade_per_time 1
+*create kill_zombie_count 1
+*create search_items_count 1
+*create remove_trash_count 3
+*create current_action_survivor 3
+*create fuel_for_player 0
+*create food_for_player 0
+*create tool_for_player 0
+*create medicine_for_player 0
+*create user_stay_area ""
+
+*comment weapon and gear
+*create has_little_knife 0
+*create has_pistol 0
+*create has_rifle 0
+*create has_shotgun 0
+*create has_telescope 0
+
+*create has_use_pistol false
+*create has_use_rifle false
+*create has_use_shotgun false
+*create has_use_knife false
+
+Welcome to your very first ChoiceScript game!
+
+Copyright 2010 by Dan Fabulich.
+
+Dan Fabulich licenses this file to you under the
+ChoiceScript License, Version 1.0 (the "License"); you may
+not use this file except in compliance with the License. 
+You may obtain a copy of the License at
+
+*link http://www.choiceofgames.com/LICENSE-1.0.txt
+
+See the License for the specific language governing
+permissions and limitations under the License.
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied.
+
+*page_break
+
+在寒冷的冬天，外面飄著大雪，你氣喘吁吁的逃到了一棟避難所，為了逃避了殭屍群的追逐，你趕緊敲了帖門柵欄很多聲，希望裡面的生存者可以讓你進去。
+
+等候了幾秒鐘，裡面一位女士跑了出來幫你開了大門，當你迅速跳進去之後，女士趕緊關上了大門。殭屍群在外面敲打著柵欄，你鬆了一口氣。
+
+在你還來不及感謝女士前，女士就問了你，你是誰？你身上是否有任何武器？有什麼目的？
+
+挑選你的劇本。
+*choice
+  #打造牢固的家園
+    *set Round 6
+    *set Morale 60
+    *temp needed_each_area_barricade_count 1
+    *set needed_colony_barricade_count 10
+    *set needed_police_station_barricade_count needed_each_area_barricade_count
+    *set needed_grocery_store_barricade_count needed_each_area_barricade_count
+    *set needed_gas_station_barricade_count needed_each_area_barricade_count
+    *set current_action_survivor 2
+    *set current_helpless_survivor 1
+    *set current_colony_zombies_count 12
+    *set current_grocery_store_zombies_count 1
+    *set current_gas_station_zombies_count 1
+    *set current_police_station_zombies_count 1
+    *set current_trash 0
+    *set food_for_player 2
+    *set fuel_for_player 2
+    *set scence_play "A"
+    
+    序：昨天這裡還是個難民營，今天就成了有模有樣的城鎮。如今人們稱這裡為避難所時的語氣已經沒有當時的挖苦與諷刺，它確實庇護著我們。唯一問題是，我們所有辛勤工作製造聲音，也給我們吸引來了大群的殭屍。每天都在我們的牆外遊蕩，伺機尋找新鮮的肉食。
+    
+    你跟女士說，我可以幫你們探索每一個場所都蓋好 ${needed_each_area_barricade_count} 組防禦柵欄，以及在避難所打造 ${needed_colony_barricade_count} 組防禦柵欄。
+    
+    女士說，好吧！在這寒冷冬天裡，外面有一群殭屍，我們裡面有 ${current_helpless_survivor+current_action_survivor}   夥伴，能多一個幫手我們都很感激。如果我們能想法幹掉這群殭屍，加固防禦，也許就能避免吸引更多敵人。
+    *finish
+  #人多食寡
+    *set Round 7
+    *set round_need_to_play 5
+    *set Morale 50
+    *set current_action_survivor 2
+    *set current_helpless_survivor current_action_survivor+3
+    *set current_colony_zombies_count 6
+    *set scence_play "B"
+    
+    序：上帝幫幫我們吧，我最近越來越喪氣，我們供應食物不夠，我知道這想法是錯誤，但是這裡面有些的一技之長根本已經不管用了。
+    
+    你跟女士說，有我的加入，我會積極配合，大家一起生存 ${round_need_to_play} 輪。
+    
+    女士說，在這時候還要分給 ${current_helpless_survivor+current_action_survivor} 夥伴吃，還要再加上你的話，真是要命喔！我們要先從食物解決著手。跟我進來一起幫忙吧。
+    
+    *finish
+    
+  #殺死殭屍群
+    *set Round 7
+    *set Morale 70
+    *set current_action_survivor 2
+    *set current_colony_zombies_count 6
+    *set scence_play "C"
+    *set current_grocery_store_zombies_count 3
+    *set current_gas_station_zombies_count 3
+    *set current_police_station_zombies_count 3
+    *set less_each_area_zombie_count 0
+    *set less_colony_zombie_count less_each_area_zombie_count
+    *set less_police_zombie_count less_each_area_zombie_count
+    *set less_grocery_zombie_count less_each_area_zombie_count
+    *set less_gas_station_zombie_count less_each_area_zombie_count
+    
+    序：我們的家園目前算安全，但是這只是短暫一時。要趁現在還有時間與能力往外探索。
+    
+    你跟女士說，我們如果能以這避難所為基地，像外附近區域做探索與佔領，這樣我們資源會比較充裕。
+    
+    女士說，還需要你說嗎？外面都被殭屍包圍了，你殺過殭屍嗎？
+    
+    你說，我殺過一下，世界末日後，我們逐漸懂得怎麼跟它們共處了。我們先來清空附近區域吧。
+    
+    *finish

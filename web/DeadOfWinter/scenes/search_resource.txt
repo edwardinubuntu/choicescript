@@ -1,0 +1,112 @@
+*label start
+
+*temp items_get  ""
+*temp area_name ""
+
+*if (user_stay_area = "police station")
+  *set area_name "警察局"
+  *gosub search_police_station
+*elseif (user_stay_area = "grocery store")
+  *set area_name "雜貨店"
+  *gosub search_grocery_store
+*elseif (user_stay_area = "gas station")
+  *set area_name "加油站"
+  *gosub search_gas_station  
+
+*label item
+你在 ${area_name} 找尋可以用的資源。獲得了 ${items_get} 物品。
+*set action_per_round action_per_round-1
+你的行動剩下 ${action_per_round}。
+
+*choice
+  *selectable_if (action_per_round>0) #繼續搜索
+    *goto start
+  #結束搜索
+    *if (user_stay_area = "police station") 
+      *goto_scene area_police_station
+    *if (user_stay_area = "grocery store") 
+      *goto_scene area_grocery_store
+    *if (user_stay_area = "gas station") 
+      *goto_scene area_gas_station
+      
+*label search_police_station
+*if (action_per_round>0)
+  *rand die_roll 1 10
+  *if (die_roll <= 1)
+    *set has_rifle 1
+    *set items_get "狙擊槍"
+    *goto item
+  *elseif (die_roll = 2)
+    *set has_pistol 1
+    *set items_get "手槍"
+    *goto item
+  *elseif (die_roll = 3)
+    *set has_shotgun 1
+    *set items_get "散彈槍"
+    *goto item
+  *elseif (die_roll = 4)
+    *set has_little_knife has_little_knife+1
+    *set items_get "小刀"
+    *goto item
+  *elseif (die_roll = 5)
+    *set has_telescope 1
+    *set items_get "望遠鏡"
+    *goto item
+  *elseif (die_roll > 5) and  (die_roll <= 7) 
+    *temp tool_get die_roll-5
+    *set tool_for_player tool_for_player+tool_get
+    *set items_get "${items_get} 工具 ${tool_get}"
+    *goto item
+  *elseif (die_roll > 7) and  (die_roll <= 9) 
+    *temp fuel_get die_roll-7
+    *set fuel_for_player fuel_for_player+fuel_get
+    *set items_get "${items_get} 醫療用品 ${fuel_get}"
+    *goto item
+  *else
+    *set items_get "0"
+    *goto item  
+  
+*label search_grocery_store
+*if (action_per_round>0)
+  *rand die_roll 1 10
+  *if (die_roll <= 5)
+    *temp food_get die_roll
+    *set food_for_player food_for_player+food_get
+    *set items_get "${items_get} 食物 ${food_get}"
+    *goto item
+  *elseif (die_roll > 5) and  (die_roll <= 7) 
+    *temp tool_get die_roll-5
+    *set tool_for_player tool_for_player+tool_get
+    *set items_get "${items_get} 工具 ${tool_get}"
+    *goto item
+  *elseif (die_roll > 7) and  (die_roll <= 9) 
+    *temp medicine_get die_roll-7
+    *set medicine_for_player medicine_for_player+medicine_get
+    *set items_get "${items_get} 醫療用品 ${medicine_get}"
+    *goto item
+  *else
+    *set items_get "0"
+    *goto item  
+
+*label search_gas_station
+*if (action_per_round>0)
+  *set resource_gas_station_left resource_gas_station_left-1
+  *rand die_roll 1 10
+  *if (die_roll <= 5)
+    *temp fuel_get die_roll
+    *set fuel_for_player fuel_for_player+fuel_get
+    *set items_get "${items_get} 燃料 ${fuel_get}"
+    *goto item
+  *elseif (die_roll > 5) and  (die_roll <= 7) 
+    *temp tool_get die_roll-5
+    *set tool_for_player tool_for_player+tool_get
+    *set items_get "${items_get} 工具 ${tool_get}"
+    *goto item
+  *elseif (die_roll > 7) and  (die_roll <= 9) 
+    *temp food_get die_roll-7
+    *set food_for_player food_for_player+food_get
+    *set items_get "${items_get} 食物 ${food_get}"
+    *goto item
+  *else
+    *set items_get "0"
+    *goto item  

@@ -1,0 +1,127 @@
+*label start
+
+*temp items_get  ""
+*temp area_name ""
+*temp area_zombies_count
+
+*if (user_stay_area = "colony")
+  *set area_name "避難所"
+  *set area_zombies_count {current_colony_zombies_count}
+*if (user_stay_area = "grocery store")
+  *set area_name "雜貨店"
+  *set area_zombies_count {current_grocery_store_zombies_count}
+*if (user_stay_area = "gas station")
+  *set area_name "加油站"
+  *set area_zombies_count {current_gas_station_zombies_count}
+*if (user_stay_area = "police station")
+  *set area_name "警察局"
+  *set area_zombies_count {current_police_station_zombies_count}
+
+*temp number_kill
+*temp will_hurt true  
+
+在 ${area_name} 有 ${area_zombies_count} 個殭屍。
+
+使用一般攻擊，會容易受傷，也耗用行動
+*temp can_use_riffle ((has_rifle>0) and (has_use_rifle=false))
+*if can_use_riffle
+  *line_break
+  使用狙擊槍，不會受傷，不會耗用行動。
+*temp can_use_shotgun ((has_shotgun>0) and (has_use_shotgun=false))
+*if can_use_shotgun
+  *line_break
+  使用散彈槍，殺多隻，製造噪音，不會受傷，不會耗用行動。
+*temp can_use_pistol ((has_pistol>0) and (has_use_pistol=false))
+*if can_use_pistol
+  *line_break
+  使用手槍，會製造噪音，但是不會讓你受傷，也不會耗用行動。
+*temp can_use_knife ((has_little_knife>0) and (has_use_knife=false))
+*if can_use_knife
+  *line_break
+  使用小刀，不會受傷，耗用行動。
+  
+
+*choice
+  *selectable_if (action_per_round>0) #一般攻擊
+    *set number_kill 1
+    *set will_hurt true
+    *set action_per_round action_per_round-1
+    *gosub kill_zombie_in_area
+  *if (can_use_riffle = true) #狙擊槍
+    *set number_kill 1
+    *set will_hurt false
+    *set has_use_rifle true
+    *gosub kill_zombie_in_area
+  *if ((has_shotgun>0) and (has_use_shotgun=false)) #散彈槍
+    *set number_kill 2
+    *set will_hurt false
+    *set has_use_shotgun true
+    *gosub kill_zombie_in_area 
+  *if (can_use_pistol = true) #手槍
+    *set number_kill 1
+    *set will_hurt false
+    *set has_use_pistol true
+    *gosub kill_zombie_in_area 
+  *if (can_use_knife = true) #小刀，不會受傷，耗用行動。
+    *set number_kill 1
+    *set will_hurt false
+    *set has_use_knife true
+    *gosub kill_zombie_in_area     
+  #返回
+    *if (user_stay_area = "colony") 
+      *goto_scene colony
+    *if (user_stay_area = "police station") 
+      *goto_scene area_police_station
+    *if (user_stay_area = "grocery store") 
+      *goto_scene area_grocery_store
+    *if (user_stay_area = "gas station") 
+      *goto_scene area_gas_station
+      
+*label kill_zombie_in_area
+殺死了${number_kill}個殭屍。
+*if (will_hurt)
+  *rand die_roll move_die_min move_die_max
+  *if (die_roll<=move_safe_below)
+    完美擊殺。
+    *gosub kill_result
+  *elseif (die_roll>move_safe_below) and (die_roll<=move_hurt)
+    *if (lose_blood < 2)
+      *set lose_blood lose_blood+1 
+      你也失去 1 點傷害。
+      *gosub kill_result
+    *else
+      *set lose_blood 0
+      *temp lose_morale 10
+      *set Morale Morale-lose_morale
+      你也被殭屍攻擊受到傷害，但是因為受傷嚴重，失去了 ${lose_morale} 點情緒。
+      *gosub kill_result
+  *elseif (die_roll=move_hurt_kill)
+    *set lose_blood 0
+    *temp lose_morale 10
+    *set Morale Morale-lose_morale
+    你被殭屍群包圍住了，無法擺脫，造成嚴重傷害，失去了 ${lose_morale} 點情緒。  
+    *gosub kill_result
+
+*label kill_result   
+
+*set area_zombies_count area_zombies_count-number_kill
+*if (area_zombies_count<0)
+  *set area_zombies_count 0
+
+該區域剩下 ${area_zombies_count} 殭屍。
+
+*choice
+  #結束
+    *if (user_stay_area = "police station") 
+      *set current_police_station_zombies_count area_zombies_count
+      *goto_scene area_police_station
+    *if (user_stay_area = "grocery store") 
+      *set current_grocery_store_zombies_count area_zombies_count
+      *goto_scene area_grocery_store
+    *if (user_stay_area = "gas station") 
+      *set current_gas_station_zombies_count area_zombies_count
+      *goto_scene area_gas_station
+    *else
+      *set current_colony_zombies_count area_zombies_count
+      *goto_scene colony
+    

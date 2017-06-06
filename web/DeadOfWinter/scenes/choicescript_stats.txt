@@ -1,0 +1,57 @@
+主要目標:
+*if (needed_colony_barricade_count > 0 ) 
+    在避難所建置 ${current_colony_barricade_count} / ${needed_colony_barricade_count} 個柵欄。
+*if (needed_police_station_barricade_count > 0 ) 
+    在警察局建置 ${current_police_station_barricade_count} / ${needed_police_station_barricade_count} 個柵欄。
+*if (needed_grocery_store_barricade_count > 0 ) 
+    在雜貨店建置 ${current_grocery_store_barricade_count} / ${needed_grocery_store_barricade_count} 個柵欄。
+*if (needed_gas_station_barricade_count > 0 ) 
+    在加油站建置 ${current_gas_station_barricade_count} / ${needed_gas_station_barricade_count} 個柵欄。
+*if (round_need_to_play>0)
+    生存過 ${round_play} / ${round_need_to_play} 輪
+    
+*if (less_colony_zombie_count < max_colony_entrance_count ) 
+  每個區域的殭屍數量都要是 ${less_each_area_zombie_count}。
+  目前避難所殭屍數量 ${current_colony_zombies_count}。
+*if (less_police_zombie_count < max_police_station_entrance_count ) 
+  警察局殭屍數量 ${current_police_station_zombies_count} 。
+*if (less_gas_station_zombie_count < max_gas_station_entrance_count ) 
+  加油站殭屍數量 ${current_gas_station_zombies_count} 。
+*if (less_grocery_zombie_count < max_grocery_store_entrance_count ) 
+  在避難所殭屍數量 ${current_grocery_store_zombies_count}。
+    
+*temp current_trash_full_percent ((current_trash * 10) / (max_trash_count * 10)) * 100
+
+避難所
+*stat_chart
+  text Round 剩餘天數
+  opposed_pair Morale
+    情緒
+    絕望
+  text current_action_survivor 行動生存者
+  text current_helpless_survivor 無助生存者
+  text starving 飢餓程度
+  opposed_pair current_trash_full_percent
+    垃圾
+    空間
+
+狀態與裝備
+*stat_chart
+  text action_per_round 單日剩餘行動
+  text lose_blood 失血
+  text food_for_player 隨行食物
+  text tool_for_player 隨行工具
+  text medicine_for_player 隨行醫療用品
+  text fuel_for_player 隨行汽油
+  text has_little_knife 小刀
+  text has_pistol 手槍
+  text has_shotgun 散彈槍
+  text has_rifle 狙擊槍
+  text has_telescope 望遠鏡
+
+能力
+*stat_chart
+  text kill_zombie_count 單次擊殺殭屍數
+  text search_items_count 單次搜索物資數
+  text build_barricade_per_time 單次搭建柵欄數
+

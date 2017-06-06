@@ -1,0 +1,24 @@
+*comment Copyright 2010 by Dan Fabulich.
+*comment 
+*comment Dan Fabulich licenses this file to you under the
+*comment ChoiceScript License, Version 1.0 (the "License"); you may
+*comment not use this file except in compliance with the License. 
+*comment You may obtain a copy of the License at
+*comment 
+*comment  http://www.choiceofgames.com/LICENSE-1.0.txt
+*comment 
+*comment See the License for the specific language governing
+*comment permissions and limitations under the License.
+*comment 
+*comment Unless required by applicable law or agreed to in writing,
+*comment software distributed under the License is distributed on an
+*comment "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+*comment either express or implied.
+
+檢查目標都達成了！
+
+*page_break
+
+恭喜獲勝，你帶著堅定的信心，縱使知道身體很疲倦，但是看著身旁的夥伴們，以及手邊的珍貴資源，知道還是要繼續往下走。你們離開這座避難所，尋找下一個安全的居住環境。
+
+*ending
