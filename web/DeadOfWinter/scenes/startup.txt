@@ -128,7 +128,6 @@ software distributed under the License is distributed on an
 either express or implied.
 
 *page_break
-
 在寒冷的冬天，外面飄著大雪，你氣喘吁吁的逃到了一棟避難所，為了逃避了殭屍群的追逐，你趕緊敲了帖門柵欄很多聲，希望裡面的生存者可以讓你進去。
 
 等候了幾秒鐘，裡面一位女士跑了出來幫你開了大門，當你迅速跳進去之後，女士趕緊關上了大門。殭屍群在外面敲打著柵欄，你鬆了一口氣。
@@ -145,7 +144,7 @@ either express or implied.
     *set needed_police_station_barricade_count needed_each_area_barricade_count
     *set needed_grocery_store_barricade_count needed_each_area_barricade_count
     *set needed_gas_station_barricade_count needed_each_area_barricade_count
-    *set current_action_survivor 2
+    *set current_action_survivor 4
     *set current_helpless_survivor 1
     *set current_colony_zombies_count 12
     *set current_grocery_store_zombies_count 1
@@ -155,6 +154,7 @@ either express or implied.
     *set food_for_player 2
     *set fuel_for_player 2
     *set scence_play "A"
+    *set action_per_round current_action_survivor+1
     
     序：昨天這裡還是個難民營，今天就成了有模有樣的城鎮。如今人們稱這裡為避難所時的語氣已經沒有當時的挖苦與諷刺，它確實庇護著我們。唯一問題是，我們所有辛勤工作製造聲音，也給我們吸引來了大群的殭屍。每天都在我們的牆外遊蕩，伺機尋找新鮮的肉食。
     
@@ -166,10 +166,11 @@ either express or implied.
     *set Round 7
     *set round_need_to_play 5
     *set Morale 50
-    *set current_action_survivor 2
+    *set current_action_survivor 3
     *set current_helpless_survivor current_action_survivor+3
     *set current_colony_zombies_count 6
     *set scence_play "B"
+    *set action_per_round current_action_survivor+1
     
     序：上帝幫幫我們吧，我最近越來越喪氣，我們供應食物不夠，我知道這想法是錯誤，但是這裡面有些的一技之長根本已經不管用了。
     
