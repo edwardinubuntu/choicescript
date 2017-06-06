@@ -76,6 +76,7 @@
 *set has_use_rifle false
 *set has_use_shotgun false 
 *set has_use_knife false
+*set has_use_cooking_mom false
   
 *choice
   #開始新的天數

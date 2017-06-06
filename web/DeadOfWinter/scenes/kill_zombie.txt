@@ -43,9 +43,9 @@
 
 *choice
   *selectable_if (action_per_round>0) #一般攻擊
-    *set number_kill 1
+    *set number_kill kill_zombie_count
     *set will_hurt true
-    *set action_per_round action_per_round-1
+    *set action_per_round action_per_round-kill_zombie_count
     *gosub kill_zombie_in_area
   *if (can_use_riffle = true) #狙擊槍
     *set number_kill 1

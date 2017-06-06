@@ -1,0 +1,80 @@
+*label start
+避難所客廳的火爐旁
+*temp action_1 false
+*set kill_zombie_count 1
+*temp action_2 false
+*set build_barricade_per_time 1
+*temp action_3 false
+*set addition_food_get 0
+*temp action_4 false
+*set addition_medicine_get 0
+*temp action_5 false
+*set is_cooking_mom false
+*line_break
+*temp n
+*set n 0
+*label loop
+*set n (n+1)
+*rand die_roll 1 5
+*if ((die_roll = 1))
+  *if ((action_1 = false))
+    *set kill_zombie_count 2
+    *set action_1 true
+    *line_break
+    第${n}位說，『我叫約翰，之前是治安官，我可以單次攻擊殺死 2 隻殭屍。』
+    *gosub check_loop
+  *else
+    *set n n-1
+    *gosub check_loop
+*if (die_roll = 2)
+  *if (action_2 = false)
+    *set build_barricade_per_time 2
+    *set action_2 true
+    *line_break
+    第${n}位說，『我叫索德，擅長建築，單次蓋 2 個柵欄交給我。』
+    *gosub check_loop
+  *else
+    *set n n-1
+    *gosub check_loop
+*if (die_roll = 3)
+  *if (action_3 = false)
+    *set addition_food_get 1
+    *set action_3 true
+    *line_break
+    第${n}位說，『我叫哈維，以前是種馬鈴薯的農夫，我探索食物時候可以多 1 份。』
+    *gosub check_loop
+  *else
+    *set n n-1
+    *gosub check_loop
+*if (die_roll = 4)
+  *if (action_4 = false)
+    *set addition_medicine_get 1
+    *set action_4 true
+    *line_break
+    第${n}位說，『我叫辛迪，是為體貼的護士，找尋藥物時候可以多 1 份。』
+    *gosub check_loop
+  *else
+    *set n n-1
+    *gosub check_loop
+*if (die_roll = 5)
+  *if (action_5 = false)
+    *set is_cooking_mom true
+    *set action_5 true
+    *line_break
+    第${n}位說，『我叫卡蘿，我會將食物煮成佳餚，每次可以煮 2 份食物。』
+    *gosub check_loop
+  *else
+    *set n n-1
+    *gosub check_loop
+  
+*label check_loop  
+*if (n >= current_action_survivor)
+ *gosub end_check
+*goto loop
+
+*label end_check
+*choice
+  #重新認識
+    *goto start
+  #結束
+    *goto_scene colony

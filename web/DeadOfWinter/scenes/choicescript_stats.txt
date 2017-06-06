@@ -54,4 +54,8 @@
   text kill_zombie_count 單次擊殺殭屍數
   text search_items_count 單次搜索物資數
   text build_barricade_per_time 單次搭建柵欄數
+  text addition_food_get 額外找食物
+  text addition_medicine_get 額外找藥物
+  text is_cooking_mom 廚師
+  
 
