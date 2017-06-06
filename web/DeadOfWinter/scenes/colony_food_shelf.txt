@@ -1,8 +1,10 @@
-*label start
+*label food_shelf_room
 
 食物供給堆
 
-我們有 ${current_helpless_survivor+current_action_survivor} 位生存者在避難所，算了一下每天都需要用到 ${round_turn_food_need} 份食物。而在儲藏架上食物只有 ${current_colony_food} 份。
+我們有 ${current_helpless_survivor+current_action_survivor} 位生存者在避難所，在儲藏架上食物只有 ${current_colony_food} 份。算了一下每天都需要用到 ${round_turn_food_need} 份食物。
+*if(current_colony_food<round_turn_food_need)
+  不夠呀。
 
 *temp area "colony"
 *set user_stay_area area

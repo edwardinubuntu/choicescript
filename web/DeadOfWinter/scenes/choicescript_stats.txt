@@ -1,4 +1,5 @@
-主要目標:
+主要目標
+*line_break
 *if (needed_colony_barricade_count > 0 ) 
     在避難所建置 ${current_colony_barricade_count} / ${needed_colony_barricade_count} 個柵欄。
 *if (needed_police_station_barricade_count > 0 ) 
