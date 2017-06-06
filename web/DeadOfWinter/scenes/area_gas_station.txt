@@ -1,0 +1,38 @@
+*label start
+*image gas_station.JPG
+加油站
+
+加油站外幾座加油台似乎還有燃料，店裡面招牌與架上商品標籤寫著，這地方以前是販售過日常工具與食物。
+*if (resource_gas_station_left>0)
+  還有物資，還剩下多少就要探索看看了。
+*if (resource_gas_station_left<=0)
+  空空蕩蕩沒有物資了。
+*line_break
+這區總共有 ${max_gas_station_entrance_count} 個出入口，
+*if (current_gas_station_zombies_count>0)
+  擠了 ${current_gas_station_zombies_count} 個殭屍，
+目前搭建了 ${current_gas_station_barricade_count} 個柵欄。
+
+*temp area "gas station"
+*set user_stay_area area
+
+*choice
+  *selectable_if (action_per_round>0) #搜索
+    *goto_scene search_resource
+  *selectable_if ((action_per_round>0) and (current_gas_station_barricade_count<max_gas_station_entrance_count)) #蓋柵欄
+    *set action_per_round action_per_round-1
+    *set current_gas_station_barricade_count current_gas_station_barricade_count+build_barricade_per_time
+    你搭建了 ${build_barricade_per_time} 個柵欄，這區總共有了 ${current_gas_station_barricade_count} 柵欄。
+  	
+    *gosub build_barricade  
+  *selectable_if (current_gas_station_zombies_count>0) #攻擊殭屍
+    *goto_scene kill_zombie  
+  #離開此處
+    *goto_scene area_move    
+  #休息，回合結束
+    *goto_scene check
+    
+*label build_barricade
+*choice
+  #建置完成
+    *goto start    

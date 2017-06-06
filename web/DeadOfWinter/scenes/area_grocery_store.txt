@@ -1,0 +1,34 @@
+*label start
+*image grocery_store.JPG
+雜貨店
+
+雜貨店上面的招牌與架上商品標籤寫著，這地方以前是販售過食物、日常工具、醫療用品，現在還剩下多少就要探索看看了。
+*line_break
+這區總共有 ${max_grocery_store_entrance_count} 個出入口，擠了 ${current_grocery_store_zombies_count} 個殭屍，目前搭建了 ${current_grocery_store_barricade_count} 個柵欄。
+
+*temp area "grocery store"
+*set user_stay_area area
+
+*temp resource resource_grocery_store_left
+*temp is_not_full (current_grocery_store_zombies_count<max_grocery_store_entrance_count)
+
+*choice
+  *selectable_if ((action_per_round>0) and (is_not_full and (resource > 0))) #搜索
+    *goto_scene search_resource
+  *selectable_if ((action_per_round>0) and (current_grocery_store_barricade_count<max_grocery_store_entrance_count)) #蓋柵欄
+    *set action_per_round action_per_round-1
+    *set current_grocery_store_barricade_count current_grocery_store_barricade_count+build_barricade_per_time
+    你搭建了 ${build_barricade_per_time} 個柵欄，這區總共有了 ${current_grocery_store_barricade_count} 柵欄。
+  	
+    *gosub build_barricade
+  #攻擊殭屍
+    *goto_scene kill_zombie
+  #離開此處
+    *goto_scene area_move    
+  #休息，回合結束
+    *goto_scene check
+    
+*label build_barricade
+*choice
+  #建置完成
+    *goto start

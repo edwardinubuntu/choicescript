@@ -1,0 +1,94 @@
+在休息了一天，我們檢查與結算了身邊所有物資與夥伴狀況。
+
+*set round_play round_play+1
+
+*comment Check food
+*if (current_colony_food >= round_turn_food_need)
+  *set current_colony_food current_colony_food - round_turn_food_need
+  大家飽足了一頓。
+  *goto check_trash
+*else
+  *set starving starving+1
+  *temp lose_morale starving*10
+  *set Morale Morale-lose_morale
+  大家挨餓了，失去了 ${lose_morale} 點情緒。
+  *goto check_trash
+  
+*label check_trash
+*line_break  
+*if (current_trash>10)
+  *temp lose_morale 10
+  *set Morale Morale-lose_morale
+  環境非常的骯髒與污染不衛生，失去了 ${lose_morale} 點情緒，剩下 ${Morale} 點情緒。
+*else
+  環境尚可，垃圾還不多。
+*line_break
+*temp round_turn_zombie_increase round_turn_zombie_need
+*set current_colony_zombies_count current_colony_zombies_count+round_turn_zombie_increase
+避難所增加了 ${round_turn_zombie_increase} 個殭屍。
+*temp space_left max_colony_entrance_count-current_colony_barricade_count
+*if (current_colony_zombies_count > space_left)
+  *temp barricade_use current_colony_zombies_count-space_left
+  *if (current_colony_barricade_count>=barricade_use)
+    *set current_colony_zombies_count current_colony_zombies_count-barricade_use
+    *set current_colony_barricade_count current_colony_barricade_count-barricade_use
+    撞掉了 ${barricade_use} 個柵欄數，抵擋了 ${barricade_use} 個殭屍。
+    *goto check_round
+  *elseif (current_colony_barricade_count<barricade_use)
+    *temp how_many_break_in barricade_use-current_colony_barricade_count
+    被殭屍入侵了，咬死了 ${how_many_break_in} 位倖存者。
+    *set current_colony_zombies_count max_colony_entrance_count
+    *set current_action_survivor current_action_survivor-how_many_break_in
+    *temp lose_morale how_many_break_in*10
+    *set Morale Morale-lose_morale
+    *if (current_action_survivor<0)
+      *set current_action_survivor 0
+    *goto check_round
+
+*comment game check
+*temp win_the_game false
+*if (scence_play = "A")
+  *if ((current_colony_barricade_count >= needed_colony_barricade_count) and ((current_police_station_barricade_count>=needed_police_station_barricade_count) and ((current_grocery_store_barricade_count >= needed_grocery_store_barricade_count) and (current_gas_station_barricade_count >= needed_gas_station_barricade_count))))
+    *set win_the_game true
+*if (scence_play = "B")
+  *if (round_play>=round_need_to_play)
+    *set win_the_game true
+    
+*if (win_the_game)
+  *goto_scene winning
+
+*label check_round
+*line_break
+*comment Check round
+*set Round Round-1
+我們剩下${Round}天。
+
+*if (Round<=0) or (Morale<=0)
+  絕望。   
+  *gosub game_over
+  
+*comment Rest and get actions
+*set action_per_round current_action_survivor+1
+*if (has_telescope>0)
+ *set action_per_round action_per_round+1
+ 
+*set has_use_pistol false
+*set has_use_rifle false
+*set has_use_shotgun false 
+*set has_use_knife false
+  
+*choice
+  #開始新的天數
+    *if (user_stay_area = "police station") 
+      *goto_scene area_police_station
+    *if (user_stay_area = "grocery store") 
+      *goto_scene area_grocery_store
+    *if (user_stay_area = "gas station") 
+      *goto_scene area_gas_station
+    *if (user_stay_area = "colony") 
+      *goto_scene colony
+    
+*label game_over
+*choice
+  #沒能達成，一切都結束了。
+    *goto_scene ending

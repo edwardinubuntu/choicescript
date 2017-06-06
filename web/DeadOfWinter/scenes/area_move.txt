@@ -1,0 +1,70 @@
+*label start
+
+移動場域
+
+走在空蕩蕩的大路上，偶而可以聽到風的聲音，附近的建築物因為風造成的敲打，與附近殭屍移動造成的聲音，讓你產生需多不安感覺。在生命受到威脅下，你知道為了生存下去，必須勇往直前，比坐以待斃好。希望運氣與上帝都能與自己同在。
+
+*temp move_to
+*set move_to  "no where"
+
+*choice
+  #前往警察局
+    *set move_to "police station"
+    *gosub move_to
+  #前往加油站
+    *set move_to "gas station"
+    *gosub move_to
+  #前往雜貨店
+    *set move_to "grocery store"
+    *gosub move_to  
+  #返回避難所
+    *set move_to "colony"
+    *gosub move_to
+
+*label move_to
+你打算怎麼行動呢？
+*choice
+  *selectable_if (fuel_for_player>0) #使用汽油
+    *set fuel_for_player fuel_for_player-1
+    消耗了 1 桶燃料，發動了車子開始前往，一切順利。
+    *gosub move_success
+  #一般行動
+    *rand die_roll move_die_min move_die_max
+    *if (die_roll<=move_safe_below)
+      路上很安全，沒有碰到困難。
+      *gosub move_success
+    *elseif (die_roll>move_safe_below) and (die_roll<=move_hurt)
+      *if (lose_blood < 2)
+        *set lose_blood lose_blood+1 
+        你被殭屍攻擊，成功擺脫追擊，失去 1 點傷害。
+      *gosub move_success
+      *else
+        *set lose_blood 0
+        *temp lose_morale 10
+        *set Morale Morale-lose_morale
+        你被殭屍攻擊，受到一點傷害，但是因為受傷嚴重，失去了 ${lose_morale} 點情緒。
+    *elseif (die_roll=move_hurt_kill)
+      *set lose_blood 0
+      *temp lose_morale 10
+      *set Morale Morale-lose_morale
+      你被殭屍群包圍住了，無法擺脫，造成嚴重傷害，失去了 ${lose_morale} 點情緒。  
+      *gosub back_here
+    
+*label move_success
+*choice
+  #抵達目的地
+    *if (move_to = "police station") 
+      *goto_scene area_police_station
+    *elseif (move_to = "grocery store") 
+      *goto_scene area_grocery_store
+    *elseif (move_to = "gas station") 
+      *goto_scene area_gas_station
+    *elseif (move_to = "colony")
+      *goto_scene colony
+    *else
+      *gosub back_here
+
+*label back_here
+*choice
+  #移動失敗，回到了原處。
+    *goto start
