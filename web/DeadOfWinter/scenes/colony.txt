@@ -29,6 +29,7 @@
 
 *temp area "colony"
 *set user_stay_area area
+*temp trash_increase 1
 
 *choice
   #前院檢查柵欄
@@ -44,11 +45,22 @@
     
   #休息，本日結束
     *goto_scene check
-    
+
 *label colony_border
+前院
+
 庭院外面到圍牆，總共有  ${max_colony_entrance_count} 出入口空間，擠了 ${current_colony_zombies_count} 個殭屍，目前有 ${current_colony_barricade_count} 柵欄。依照目前狀況，我們每天估計會吸引到 ${round_turn_zombie_need} 位殭屍。
+*if (tool_for_player > 0)
+  *line_break
+  用工具蓋柵欄可以蓋比較快，消耗工具會變成垃圾，但是不會耗用到行動。
+*temp can_build_barricade (max_colony_entrance_count > (current_colony_zombies_count+current_colony_barricade_count))
 *choice
-  *selectable_if ((action_per_round > 0) and (max_colony_entrance_count > (current_colony_zombies_count+current_colony_barricade_count))) #蓋柵欄
+  *if ((tool_for_player > 0) and can_build_barricade) #用工具蓋柵欄
+    *set current_colony_barricade_count current_colony_barricade_count+build_barricade_per_time
+    *set current_trash current_trash+trash_increase
+    你搭建了 ${build_barricade_per_time} 個柵欄，將工具丟到垃圾堆，讓避難所總共有了 ${current_colony_barricade_count} 柵欄。
+    *gosub finish_build_barricade
+  *selectable_if ((action_per_round > 0) and can_build_barricade) #蓋柵欄
     *set action_per_round action_per_round-1
     *set current_colony_barricade_count current_colony_barricade_count+build_barricade_per_time
     你搭建了 ${build_barricade_per_time} 個柵欄，讓避難所總共有了 ${current_colony_barricade_count} 柵欄。
@@ -57,10 +69,12 @@
     *goto_scene colony
 
 *label colony_backyard
+後院
+
 *if (current_trash>0)
-  後院的垃圾堆開始有垃圾，垃圾填滿了 ${current_trash/max_trash_count}  整個空間，希望垃圾別滿，不然環境的衛生就會出問題。
+  垃圾堆開始有垃圾，垃圾填滿了 ${current_trash/max_trash_count}  整個空間，希望垃圾別滿，不然環境的衛生就會出問題。
 *if (current_trash=0)
-  後院的垃圾堆是非常乾淨的。
+  垃圾堆是非常乾淨的。
 *choice
   *selectable_if ((action_per_round>0) and (current_trash>0)) #整理垃圾堆
     *set action_per_round action_per_round-1
@@ -89,10 +103,9 @@
 *set user_stay_area area
 
 *temp give_food 0
-*temp trash_increase 1
 
 *choice
-  #提供食物
+  *selectable_if (food_for_player > 0) #提供食物
     你擁有 ${food_for_player} 份隨行食物，想要提供多少呢。
 
     *input_number give_food 0 food_for_player
