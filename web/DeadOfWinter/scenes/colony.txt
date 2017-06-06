@@ -107,11 +107,13 @@
 *temp give_food 0
 
 *choice
+
   *if (((has_use_cooking_mom=false) and (is_cooking_mom=true)) and (action_per_round>0)) #廚師佳餚
     *set current_colony_food current_colony_food+2
     *set action_per_round action_per_round-1
     *set has_use_cooking_mom true
     *gosub finish_cook_food
+
   *selectable_if (food_for_player > 0) #提供食物
     你擁有 ${food_for_player} 份隨行食物，想要提供多少呢。
 
