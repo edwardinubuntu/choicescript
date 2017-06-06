@@ -13,7 +13,7 @@
 *temp trash_increase 1
 
 *choice
-  #提供食物
+  *selectable_if (food_for_player > 0) #提供食物
     你擁有 ${food_for_player} 份隨行食物，想要提供多少呢。
 
     *input_number give_food 0 food_for_player
