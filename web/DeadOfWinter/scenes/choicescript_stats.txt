@@ -1,4 +1,5 @@
-主要目標:
+主要目標
+*line_break
 *if (needed_colony_barricade_count > 0 ) 
     在避難所建置 ${current_colony_barricade_count} / ${needed_colony_barricade_count} 個柵欄。
 *if (needed_police_station_barricade_count > 0 ) 
@@ -8,7 +9,7 @@
 *if (needed_gas_station_barricade_count > 0 ) 
     在加油站建置 ${current_gas_station_barricade_count} / ${needed_gas_station_barricade_count} 個柵欄。
 *if (round_need_to_play>0)
-    生存過 ${round_play} / ${round_need_to_play} 輪
+    生存過 ${round_play} / ${round_need_to_play} 天
     
 *if (less_colony_zombie_count < max_colony_entrance_count ) 
   每個區域的殭屍數量都要是 ${less_each_area_zombie_count}。

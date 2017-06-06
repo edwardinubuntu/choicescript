@@ -173,7 +173,7 @@ either express or implied.
     
     序：上帝幫幫我們吧，我最近越來越喪氣，我們供應食物不夠，我知道這想法是錯誤，但是這裡面有些的一技之長根本已經不管用了。
     
-    你跟女士說，有我的加入，我會積極配合，大家一起生存 ${round_need_to_play} 輪。
+    你跟女士說，有我的加入，我會積極配合，大家一起生存 ${round_need_to_play} 天。
     
     女士說，在這時候還要分給 ${current_helpless_survivor+current_action_survivor} 夥伴吃，還要再加上你的話，真是要命喔！我們要先從食物解決著手。跟我進來一起幫忙吧。
     

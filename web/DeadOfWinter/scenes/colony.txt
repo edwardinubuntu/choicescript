@@ -2,53 +2,112 @@
 *image colony.JPG
 *set round_turn_food_need round((current_helpless_survivor + current_action_survivor) / 2)
 *set round_turn_zombie_need round_turn_food_need
-避難所大廳
+第 ${round_play+1} 日，避難所大廳
 
-有 ${current_helpless_survivor} 位無助生存者和 ${current_action_survivor} 有行動能力生存者在這邊。算了一下每天都需要用到 ${round_turn_food_need} 份食物。而在儲藏架上食物只有 ${current_colony_food} 份。
+有 ${current_helpless_survivor} 位無助生存者和 ${current_action_survivor} 有行動能力生存者在這邊。
+*if (current_colony_food>=round_turn_food_need)
+  在食物儲藏室的食物供給足夠。
+*if (current_colony_food<round_turn_food_need)
+  在食物儲藏室的食物供給不足，要飢餓了，我們該怎麼辦才好。
+*comment 前院狀況
 *line_break
-往窗外看出去，外面庭院到圍牆，總共有  ${max_colony_entrance_count} 出入口空間，擠了 ${current_colony_zombies_count} 個殭屍，目前有 ${current_colony_barricade_count} 柵欄。依照目前吵鬧聲響，我們每次會吸引到 ${round_turn_zombie_need} 位殭屍。
+往窗外看出去，前面庭院廣場到圍牆，
+*if (current_colony_zombies_count>0)
+  擠了一群殭屍在徘徊走動，時而發出低成嘶吼聲音。
+*if (current_colony_barricade_count>0)
+  目前有些許柵欄，希望可以抵擋住殭屍別往裡面來。
+*if (current_colony_barricade_count<=0)
+  在沒有任何柵欄保護，殭屍隨時會走進來，等空間滿了就非常危險。
+*comment 後院狀況
 *line_break
 *if (current_trash>0)
   後院的垃圾堆開始有垃圾，希望垃圾別滿，不然環境的衛生就會出問題。
 *if (current_trash=0)
   後院的垃圾堆是非常乾淨的。  
 
-剩下${Round}天。情緒 ${Morale}  。
+剩下${Round}天。
 
 *temp area "colony"
 *set user_stay_area area
 
 *choice
+  #到前院廣場
+    *gosub colony_border
+  #到後院
+    *gosub colony_backyard
+  #到食物儲藏室
+    *gosub food_shelf_room  
+    
+  #離開避難所，外出行動
+    *goto_scene area_move   
+    
+  #休息，本日結束
+    *goto_scene check
+    
+*label colony_border
+外面庭院到圍牆，總共有  ${max_colony_entrance_count} 出入口空間，擠了 ${current_colony_zombies_count} 個殭屍，目前有 ${current_colony_barricade_count} 柵欄。依照目前狀況，我們每天估計會吸引到 ${round_turn_zombie_need} 位殭屍。
+*choice
   *selectable_if ((action_per_round > 0) and (max_colony_entrance_count > (current_colony_zombies_count+current_colony_barricade_count))) #蓋柵欄
     *set action_per_round action_per_round-1
     *set current_colony_barricade_count current_colony_barricade_count+build_barricade_per_time
     你搭建了 ${build_barricade_per_time} 個柵欄，讓避難所總共有了 ${current_colony_barricade_count} 柵欄。
-    *gosub build_barricade
-    
+    *gosub back_to_colony
+  #攻擊殭屍
+    *goto_scene kill_zombie 
+  #回到避難所大廳
+    *goto_scene colony
+
+*label colony_backyard
+*if (current_trash>0)
+  後院的垃圾堆開始有垃圾，垃圾填滿了 ${current_trash/max_trash_count}  整個空間，希望垃圾別滿，不然環境的衛生就會出問題。
+*if (current_trash=0)
+  後院的垃圾堆是非常乾淨的。
+*choice
   *selectable_if ((action_per_round>0) and (current_trash>0)) #整理垃圾堆
     *set action_per_round action_per_round-1
     *set current_trash current_trash-remove_trash_count
     *if (current_trash<0)
       *set current_trash 0
     你耗費了些許時間移除了 ${remove_trash_count} 個垃圾，讓垃圾堆剩下 ${current_trash} 個垃圾。
-    *gosub clean_trash
-  #攻擊殭屍
-    *goto_scene kill_zombie 
-  #查看食物供給堆
-    *goto_scene colony_food_shelf  
-    
-  #外出行動
-    *goto_scene area_move   
-    
-  #休息，回合結束
-    *goto_scene check
-    
-*label build_barricade
+    *gosub back_to_colony
+  #回到避難所大廳
+    *goto_scene colony
+
+*label back_to_colony
 *choice
   #回到避難所大廳
     *goto_scene colony
 
-*label clean_trash
+*label food_shelf_room
+
+食物供給堆
+
+我們有 ${current_helpless_survivor+current_action_survivor} 位生存者在避難所，在儲藏架上食物只有 ${current_colony_food} 份。算了一下每天都需要用到 ${round_turn_food_need} 份食物。
+*if(current_colony_food<round_turn_food_need)
+  不夠呀。
+
+*temp area "colony"
+*set user_stay_area area
+
+*temp give_food 0
+*temp trash_increase 1
+
 *choice
-  #回到避難所大廳
+  #提供食物
+    你擁有 ${food_for_player} 份隨行食物，想要提供多少呢。
+
+    *input_number give_food 0 food_for_player
+    
+    *set current_colony_food current_colony_food+give_food
+    *set food_for_player food_for_player-give_food
+    *set current_trash current_trash+trash_increase
+
+    *gosub finish_give_food
+  #返回避難所大廳
     *goto_scene colony
+    
+*label finish_give_food
+你提供了 ${give_food} 份食物到食物供給堆上，且丟了 ${trash_increase} 份垃圾。
+*choice
+  #完成
+    *gosub food_shelf_room
