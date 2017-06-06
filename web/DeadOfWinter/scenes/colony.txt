@@ -4,51 +4,68 @@
 *set round_turn_zombie_need round_turn_food_need
 避難所大廳
 
-有 ${current_helpless_survivor} 位無助生存者和 ${current_action_survivor} 有行動能力生存者在這邊。算了一下每天都需要用到 ${round_turn_food_need} 份食物。而在儲藏架上食物只有 ${current_colony_food} 份。
+有 ${current_helpless_survivor} 位無助生存者和 ${current_action_survivor} 有行動能力生存者在這邊。
+*if (current_colony_food>=round_turn_food_need)
+  在食物儲藏室的食物供給足夠。
+*if (current_colony_food<round_turn_food_need)
+  在食物儲藏室的食物供給不足，要飢餓了，我們該怎麼辦才好。
 *line_break
-往窗外看出去，外面庭院到圍牆，總共有  ${max_colony_entrance_count} 出入口空間，擠了 ${current_colony_zombies_count} 個殭屍，目前有 ${current_colony_barricade_count} 柵欄。依照目前吵鬧聲響，我們每次會吸引到 ${round_turn_zombie_need} 位殭屍。
+往窗外看出去，外面庭院到圍牆，擠了 ${current_colony_zombies_count} 個殭屍，目前有 ${current_colony_barricade_count} 柵欄。依照目前狀況，我們每天估計會吸引到 ${round_turn_zombie_need} 位殭屍。
 *line_break
 *if (current_trash>0)
   後院的垃圾堆開始有垃圾，希望垃圾別滿，不然環境的衛生就會出問題。
 *if (current_trash=0)
   後院的垃圾堆是非常乾淨的。  
 
-剩下${Round}天。情緒 ${Morale}  。
+剩下${Round}天。
 
 *temp area "colony"
 *set user_stay_area area
 
 *choice
+  #到避難所外圍
+    *gosub colony_border
+  #到後院
+    *gosub colony_backyard
+  #到食物儲藏室
+    *goto_scene colony_food_shelf  
+    
+  #離開避難所，外出行動
+    *goto_scene area_move   
+    
+  #休息，本日結束
+    *goto_scene check
+    
+*label colony_border
+外面庭院到圍牆，總共有  ${max_colony_entrance_count} 出入口空間，擠了 ${current_colony_zombies_count} 個殭屍，目前有 ${current_colony_barricade_count} 柵欄。
+*choice
   *selectable_if ((action_per_round > 0) and (max_colony_entrance_count > (current_colony_zombies_count+current_colony_barricade_count))) #蓋柵欄
     *set action_per_round action_per_round-1
     *set current_colony_barricade_count current_colony_barricade_count+build_barricade_per_time
     你搭建了 ${build_barricade_per_time} 個柵欄，讓避難所總共有了 ${current_colony_barricade_count} 柵欄。
-    *gosub build_barricade
-    
+    *gosub back_to_colony
+  #攻擊殭屍
+    *goto_scene kill_zombie 
+  #回到避難所大廳
+    *goto_scene colony
+
+*label colony_backyard
+*if (current_trash>0)
+  後院的垃圾堆開始有垃圾，希望垃圾別滿，不然環境的衛生就會出問題。
+*if (current_trash=0)
+  後院的垃圾堆是非常乾淨的。
+*choice
   *selectable_if ((action_per_round>0) and (current_trash>0)) #整理垃圾堆
     *set action_per_round action_per_round-1
     *set current_trash current_trash-remove_trash_count
     *if (current_trash<0)
       *set current_trash 0
     你耗費了些許時間移除了 ${remove_trash_count} 個垃圾，讓垃圾堆剩下 ${current_trash} 個垃圾。
-    *gosub clean_trash
-  #攻擊殭屍
-    *goto_scene kill_zombie 
-  #查看食物供給堆
-    *goto_scene colony_food_shelf  
-    
-  #外出行動
-    *goto_scene area_move   
-    
-  #休息，回合結束
-    *goto_scene check
-    
-*label build_barricade
-*choice
+    *gosub back_to_colony
   #回到避難所大廳
     *goto_scene colony
 
-*label clean_trash
+*label back_to_colony
 *choice
   #回到避難所大廳
     *goto_scene colony

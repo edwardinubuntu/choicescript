@@ -2,7 +2,7 @@
 
 食物供給堆
 
-在食物供給堆上，總共有 ${current_colony_food} 份食物。
+我們有 ${current_helpless_survivor+current_action_survivor} 位生存者在避難所，算了一下每天都需要用到 ${round_turn_food_need} 份食物。而在儲藏架上食物只有 ${current_colony_food} 份。
 
 *temp area "colony"
 *set user_stay_area area
