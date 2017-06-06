@@ -153,6 +153,8 @@ either express or implied.
     *set current_trash 0
     *set food_for_player 2
     *set fuel_for_player 2
+    *set tool_for_player 1
+    *set medicine_for_player 1
     *set scence_play "A"
     *set action_per_round current_action_survivor+1
     

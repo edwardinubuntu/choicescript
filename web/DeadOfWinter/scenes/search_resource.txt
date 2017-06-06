@@ -119,7 +119,7 @@ ${area_name}
     *gosub  find_survior
     
 *label find_survior
-*rand die_roll 1 3
+*rand die_roll 1 2
 *temp helpless_survior 1
 *temp action_survior die_roll
 找到了 ${action_survior} 位倖存者和 ${helpless_survior} 無助倖存者

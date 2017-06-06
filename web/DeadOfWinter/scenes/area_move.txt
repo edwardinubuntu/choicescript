@@ -23,6 +23,9 @@
 
 *label move_to
 你打算怎麼行動呢？
+
+*if (fuel_for_player>0)
+  隨行有 ${fuel_for_player} 桶燃料
 *choice
   *selectable_if (fuel_for_player>0) #使用汽油
     *set fuel_for_player fuel_for_player-1

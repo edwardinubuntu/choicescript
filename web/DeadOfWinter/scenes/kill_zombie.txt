@@ -5,7 +5,7 @@
 *temp area_zombies_count
 
 *if (user_stay_area = "colony")
-  *set area_name "避難所"
+  *set area_name "避難所外圍"
   *set area_zombies_count {current_colony_zombies_count}
 *if (user_stay_area = "grocery store")
   *set area_name "雜貨店"
@@ -20,7 +20,7 @@
 *temp number_kill
 *temp will_hurt true  
 *image girl_hit_zombies.JPG
-在 ${area_name} 有 ${area_zombies_count} 個殭屍。
+在${area_name}有 ${area_zombies_count} 個殭屍。
 
 使用一般攻擊，會容易受傷，也耗用行動
 *temp can_use_riffle ((has_rifle>0) and (has_use_rifle=false))
