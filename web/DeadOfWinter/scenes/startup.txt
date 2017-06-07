@@ -202,7 +202,6 @@ either express or implied.
     *set current_gas_station_zombies_count 3
     *set current_police_station_zombies_count 3
     *set less_each_area_zombie_count 0
-    *set less_colony_zombie_count less_each_area_zombie_count
     *set less_police_zombie_count less_each_area_zombie_count
     *set less_grocery_zombie_count less_each_area_zombie_count
     *set less_gas_station_zombie_count less_each_area_zombie_count
