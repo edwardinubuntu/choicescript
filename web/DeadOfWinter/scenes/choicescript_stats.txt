@@ -10,15 +10,18 @@
     在加油站建置 ${current_gas_station_barricade_count} / ${needed_gas_station_barricade_count} 個柵欄。
 *if (round_need_to_play>0)
     生存過 ${round_play} / ${round_need_to_play} 天
-*if (less_colony_zombie_count < max_colony_entrance_count ) 
+*if (scence_play = "C")
   每個區域的殭屍數量都要是 ${less_each_area_zombie_count}。
-  目前避難所殭屍數量 ${current_colony_zombies_count}。
+  *line_break
+  目前
+*if (less_colony_zombie_count < max_colony_entrance_count ) 
+  避難所殭屍數量 ${current_colony_zombies_count}。
 *if (less_police_zombie_count < max_police_station_entrance_count ) 
   警察局殭屍數量 ${current_police_station_zombies_count} 。
 *if (less_gas_station_zombie_count < max_gas_station_entrance_count ) 
   加油站殭屍數量 ${current_gas_station_zombies_count} 。
 *if (less_grocery_zombie_count < max_grocery_store_entrance_count ) 
-  在避難所殭屍數量 ${current_grocery_store_zombies_count}。
+  在雜貨店殭屍數量 ${current_grocery_store_zombies_count}。
     
 *temp current_trash_full_percent ((current_trash * 10) / (max_trash_count * 10)) * 100
 
