@@ -48,14 +48,20 @@
 *comment game check
 *temp win_the_game false
 *if (scence_play = "A")
-  *if ((current_colony_barricade_count >= needed_colony_barricade_count) and ((current_police_station_barricade_count>=needed_police_station_barricade_count) and ((current_grocery_store_barricade_count >= needed_grocery_store_barricade_count) and (current_gas_station_barricade_count >= needed_gas_station_barricade_count))))
+  *temp colony_barricade (current_colony_barricade_count >= needed_colony_barricade_count)
+  *temp police_station_barricade (current_police_station_barricade_count>=needed_police_station_barricade_count)
+  *temp grocery_store_barricade (current_grocery_store_barricade_count >= needed_grocery_store_barricade_count)
+  *if ((colony_barricade = true) and ((police_station_barricade = true) and ((grocery_store_barricade = true) and (current_gas_station_barricade_count >= needed_gas_station_barricade_count))))
     *set win_the_game true
 *if (scence_play = "B")
   *if (round_play>=round_need_to_play)
     *set win_the_game true
-    
+*if (scence_play = "C")
+  *if ((((less_police_zombie_count >= current_police_station_zombies_count)) and (less_gas_station_zombie_count >= current_gas_station_zombies_count)) and (less_grocery_zombie_count >= current_grocery_store_zombies_count ))
+    *set win_the_game true
+   
 *if (win_the_game)
-  *goto_scene winning
+  *goto check_achievement
 
 *label check_round
 *line_break
@@ -93,3 +99,23 @@
 *choice
   #沒能達成，一切都結束了。
     *goto_scene ending
+    
+*label check_achievement
+
+*temp has_weapon ((((has_little_knife = true) or (has_pistol = true)) or (has_shotgun = true)) or (has_rifle = true))
+*if ((has_weapon = true) and (tool_for_player>=2))
+  *achieve survior4
+
+*if ((current_helpless_survivor + current_action_survivor) >= 12)
+  *achieve survior3
+  
+*if ((((has_weapon = true) and (food_for_player > 0)) and (medicine_for_player > 0)) and (fuel_for_player > 0))
+  *achieve survior2
+
+*if (current_helpless_survivor > 2)
+  *achieve survior6
+ 
+*if (current_colony_barricade_count > 4)  
+  *achieve survior7
+
+*goto_scene winning

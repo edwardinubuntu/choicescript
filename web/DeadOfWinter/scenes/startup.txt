@@ -15,7 +15,7 @@
 *comment "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 *comment either express or implied.
 
-*title 死亡寒冬
+*title At The Colony
 *author Edward Chiang
 *scene_list
   startup
@@ -114,6 +114,23 @@
 *create has_use_knife false
 
 *create has_gathering false
+
+*achievement survior1 hidden 10 富有經驗
+  hidden
+  每個倖存者都裝備了物品。(尚未開放)
+*achievement survior2 visible 10 渴望存活
+ 隨行具備 1 把武器、1 份食物、1 份汽油、1 份藥物。
+*achievement survior3 visible 10 繁衍
+  所有幸存者至少具有 12 名。
+*achievement survior4 visible 10 殭屍殺戮機器！
+  隨行具有 1 把武器和 2 份工具。
+  稱呼自己為 “殭屍殺戮機器！”
+*achievement survior5 visible 10 飢餓
+  隨行具有 3 份食物。  
+*achievement survior6 visible 10 希望
+  避難所有 2 位以上無助幸存者  
+*achievement survior7 visible 10 安全第一
+  避難所具有 4 個以上柵欄  
 
 Welcome to your very first ChoiceScript game!
 
