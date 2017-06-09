@@ -132,6 +132,10 @@
 *achievement survior7 visible 10 安全第一
   避難所具有 4 個以上柵欄  
 
+*achievement betrayal1 hidden 20 接受你的命運
+  hidden
+  背叛者！隨行至少 1 種武器，至少具有 3 份藥物。
+
 Welcome to your very first ChoiceScript game!
 
 Copyright 2010 by Dan Fabulich.
