@@ -15,7 +15,7 @@
 *comment "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 *comment either express or implied.
 
-*title At The Colony
+*title The Dead of the Winter
 *author Edward Chiang
 *scene_list
   startup
