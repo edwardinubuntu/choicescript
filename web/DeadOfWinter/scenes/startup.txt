@@ -108,6 +108,9 @@
 *create has_shotgun 0
 *create has_telescope 0
 
+*create can_use_double_kill_per_turn false
+*create has_use_double_kill_skill false
+
 *create has_use_pistol false
 *create has_use_rifle false
 *create has_use_shotgun false
@@ -132,6 +135,10 @@
 *achievement survior7 visible 10 安全第一
   避難所具有 4 個以上柵欄  
 
+*achievement betrayal1 hidden 20 接受你的命運
+  hidden
+  背叛者！隨行至少 1 種武器，至少具有 3 份藥物。
+
 Welcome to your very first ChoiceScript game!
 
 Copyright 2010 by Dan Fabulich.
@@ -152,6 +159,7 @@ software distributed under the License is distributed on an
 either express or implied.
 
 *page_break
+*image cover.JPG
 在寒冷的冬天，外面飄著大雪，你氣喘吁吁的逃到了一棟避難所，為了逃避了殭屍群的追逐，你趕緊敲了帖門柵欄很多聲，希望裡面的生存者可以讓你進去。
 
 等候了幾秒鐘，裡面一位女士跑了出來幫你開了大門，當你迅速跳進去之後，女士趕緊關上了大門。殭屍群在外面敲打著柵欄，你鬆了一口氣。

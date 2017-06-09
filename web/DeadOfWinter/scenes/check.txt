@@ -70,8 +70,8 @@
 我們剩下${Round}天。
 
 *if (Round<=0) or (Morale<=0)
-  絕望。   
-  *gosub game_over
+  絕望。
+  *goto check_lose_achievement   
   
 *comment Rest and get actions
 *set action_per_round current_action_survivor+1
@@ -119,3 +119,10 @@
   *achieve survior7
 
 *goto_scene winning
+
+*label check_lose_achievement
+
+*if ((has_weapon) and (medicine_for_player >= 3))
+  *achieve betrayal1
+
+*gosub game_over
