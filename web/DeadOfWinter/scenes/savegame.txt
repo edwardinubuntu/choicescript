@@ -1,0 +1,13 @@
+*label endsaveload
+*if (save_load)
+  *set sscence_play scence_play
+  *goto redirect
+*else
+  *set scence_play sscence_play
+  *goto redirect
+
+*label redirect
+*if (((scence_play = "A") or (scence_play = "B")) or (scence_play = "C"))
+  *goto_scene scene_setup
+*else
+  *goto_scene startup

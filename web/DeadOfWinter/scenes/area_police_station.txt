@@ -14,7 +14,7 @@
     *set current_police_station_barricade_count current_police_station_barricade_count+build_barricade_per_time
     你搭建了 ${build_barricade_per_time} 個柵欄，這區總共有了 ${current_police_station_barricade_count} 柵欄。
   	
-    *gosub build_barricade
+    *goto build_barricade
   #攻擊殭屍
     *goto_scene kill_zombie
   #離開此處

@@ -15,13 +15,14 @@ ${area_name}
   *selectable_if (action_per_round>0) #一般搜索
     *if (user_stay_area = "police station")
       *set area_name "警察局"
-      *gosub search_police_station
+      *goto search_police_station
     *elseif (user_stay_area = "grocery store")
       *set area_name "雜貨店"
-      *gosub search_grocery_store
+      *goto search_grocery_store
     *elseif (user_stay_area = "gas station")
       *set area_name "加油站"
-      *gosub search_gas_station  
+      *goto search_gas_station
+    *ending 
   #結束搜索
     *if (user_stay_area = "police station") 
       *goto_scene area_police_station
@@ -29,6 +30,7 @@ ${area_name}
       *goto_scene area_grocery_store
     *if (user_stay_area = "gas station") 
       *goto_scene area_gas_station
+    *ending
 
 *label item
 你在 ${area_name} 找尋可以用的資源。獲得了 ${items_get} 物品。

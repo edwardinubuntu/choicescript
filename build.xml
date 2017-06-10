@@ -17,7 +17,7 @@ software distributed under the License is distributed on an
 either express or implied.
 -->
 <project default="quicktest">
-  <property name = "game.dir" value="mygame" />
+  <property name = "game.dir" value="DeadOfWinter" />
   <target name="burn-revision-numbers" unless="skipVersion">
     <condition property="git" value="gitx.cmd">
         <os family="windows" />

@@ -10,16 +10,16 @@
 *choice
   #前往警察局
     *set move_to "police station"
-    *gosub move_to
+    *goto move_to
   #前往加油站
     *set move_to "gas station"
-    *gosub move_to
+    *goto move_to
   #前往雜貨店
     *set move_to "grocery store"
-    *gosub move_to  
+    *goto move_to  
   #返回避難所
     *set move_to "colony"
-    *gosub move_to
+    *goto move_to
 
 *label move_to
 你打算怎麼行動呢？
@@ -30,17 +30,17 @@
   *selectable_if (fuel_for_player>0) #使用汽油
     *set fuel_for_player fuel_for_player-1
     消耗了 1 桶燃料，發動了車子開始前往，一切順利。
-    *gosub move_success
+    *goto move_success
   #一般行動
     *rand die_roll move_die_min move_die_max
     *if (die_roll<=move_safe_below)
       路上很安全，沒有碰到困難。
-      *gosub move_success
+      *goto move_success
     *elseif (die_roll>move_safe_below) and (die_roll<=move_hurt)
       *if (lose_blood < 2)
         *set lose_blood lose_blood+1 
         你被殭屍攻擊，成功擺脫追擊，失去 1 點傷害。
-      *gosub move_success
+      *goto move_success
       *else
         *set lose_blood 0
         *temp lose_morale 10
