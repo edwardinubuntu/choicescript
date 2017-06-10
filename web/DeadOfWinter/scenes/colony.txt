@@ -14,6 +14,8 @@
 往窗外看出去，前面庭院廣場到圍牆，
 *if (current_colony_zombies_count>0)
   擠了一群殭屍在徘徊走動，時而發出低成嘶吼聲音。
+*if (current_colony_zombies_count = 0)
+  非常安靜，除了吹來風聲以外，毫無任何生跡。
 *if (current_colony_barricade_count>0)
   目前有些許柵欄，希望可以抵擋住殭屍別往裡面來。
 *if (current_colony_barricade_count<=0)

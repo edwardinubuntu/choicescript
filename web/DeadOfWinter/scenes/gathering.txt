@@ -1,4 +1,5 @@
 *label start
+*image colie.JPG
 避難所客廳的火爐旁
 *temp action_1 false
 *set kill_zombie_count 1
@@ -10,12 +11,14 @@
 *set addition_medicine_get 0
 *temp action_5 false
 *set is_cooking_mom false
+*temp action_6 false
+*set is_moving_parkour false
 *line_break
 *temp n
 *set n 0
 *label loop
 *set n (n+1)
-*rand die_roll 1 5
+*rand die_roll 1 6
 *if ((die_roll = 1))
   *if ((action_1 = false))
     *set kill_zombie_count 2
@@ -66,6 +69,16 @@
   *else
     *set n n-1
     *gosub check_loop
+*if (die_roll = 6)
+  *if (action_6 = false)
+    *set is_moving_parkour true
+    *set action_6 true
+    *line_break
+    第${n}位說，『我叫大丹，以前常玩跑酷，派我搜索不會被殭屍群擋住。』
+    *goto check_loop
+  *else
+    *set n n-1
+    *gosub check_loop
   
 *label check_loop  
 *if (n >= current_action_survivor)
@@ -73,6 +86,9 @@
 *goto loop
 
 *label end_check
+*line_break
+*line_break
+克蘿伊說，這幾位倖存者可以跟你一起行動，在這恐怖混亂的外面，多一個幫手在需要的時候，再好不過了。
 *choice
   #重新認識
     *goto start

@@ -48,12 +48,16 @@
 *set threat_tool_provide 0
 *set threat_fuel_need 0
 *set threat_fuel_provide 0
-*rand die_roll 1 2
+*rand die_roll 1 4
 *set treat_during_per_round die_roll
 *if (treat_during_per_round = 1)
-    *set threat_food_need 2
+    *set threat_food_need 1
 *if (treat_during_per_round = 2)
-  *set threat_medicene_need 2
+  *set threat_medicene_need 1
+*if (treat_during_per_round = 3)
+  *set threat_tool_need 1
+*if (treat_during_per_round = 4)
+  *set threat_fuel_need 1
 *line_break 
 *label round_turn_zombie_increasing  
 *temp round_turn_zombie_increase round_turn_zombie_need
@@ -91,6 +95,9 @@
     *set win_the_game true
 *if (scence_play = "C")
   *if ((((less_police_zombie_count >= current_police_station_zombies_count)) and (less_gas_station_zombie_count >= current_gas_station_zombies_count)) and (less_grocery_zombie_count >= current_grocery_store_zombies_count ))
+    *set win_the_game true
+*if (scence_play = "D")
+  *if (current_colony_medicine >= need_medicene_count)
     *set win_the_game true
 *if (win_the_game)
   *goto check_achievement

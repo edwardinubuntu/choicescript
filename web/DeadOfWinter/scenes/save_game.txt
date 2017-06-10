@@ -7,7 +7,7 @@
   *goto redirect
 
 *label redirect
-*if (((scence_play = "A") or (scence_play = "B")) or (scence_play = "C"))
+*if (scence_play != 0)
   *goto_scene scene_setup
 *else
   *goto_scene startup

@@ -14,6 +14,8 @@
   沒有行動了，還可以做一些事情，或者選擇休息，本日結束。
 
 *choice
+  *if ((is_moving_parkour = true) and (action_per_round>0)) #跑酷搜索
+    *goto_scene search_resource
   *selectable_if (action_per_round>0) #搜索
     *goto_scene search_resource
   *selectable_if ((action_per_round>0) and (current_police_station_barricade_count<max_police_station_entrance_count)) #蓋柵欄
