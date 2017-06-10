@@ -20,8 +20,12 @@
   *temp lose_morale 10
   *set Morale Morale-lose_morale
   環境非常的骯髒與污染不衛生，失去了 ${lose_morale} 點情緒，剩下 ${Morale} 點情緒。
+  *goto round_turn_zombie_increasing
 *if (current_trash <= 10)
   環境尚可，垃圾還不多。
+  *goto round_turn_zombie_increasing
+
+*label round_turn_zombie_increasing  
 *line_break
 *temp round_turn_zombie_increase round_turn_zombie_need
 *set current_colony_zombies_count current_colony_zombies_count+round_turn_zombie_increase
@@ -122,7 +126,8 @@
 
 *label check_lose_achievement
 
-*if ((has_weapon) and (medicine_for_player >= 3))
+*temp has_weapon ((((has_little_knife = true) or (has_pistol = true)) or (has_shotgun = true)) or (has_rifle = true))
+*if ((has_weapon=true) and (medicine_for_player >= 3))
   *achieve betrayal1
 
 *gosub game_over

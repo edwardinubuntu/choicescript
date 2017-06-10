@@ -22,7 +22,7 @@
     *set action_1 true
     *line_break
     第${n}位說，『我叫約翰，之前是治安官，我可以單次攻擊殺死 2 隻殭屍。』
-    *gosub check_loop
+    *goto check_loop
   *else
     *set n n-1
     *gosub check_loop
@@ -32,7 +32,7 @@
     *set action_2 true
     *line_break
     第${n}位說，『我叫索德，擅長建築，單次蓋 2 個柵欄交給我。』
-    *gosub check_loop
+    *goto check_loop
   *else
     *set n n-1
     *gosub check_loop
@@ -42,7 +42,7 @@
     *set action_3 true
     *line_break
     第${n}位說，『我叫哈維，以前是種馬鈴薯的農夫，我探索食物時候可以多 1 份。』
-    *gosub check_loop
+    *goto check_loop
   *else
     *set n n-1
     *gosub check_loop
@@ -52,7 +52,7 @@
     *set action_4 true
     *line_break
     第${n}位說，『我叫辛迪，是為體貼的護士，找尋藥物時候可以多 1 份。』
-    *gosub check_loop
+    *goto check_loop
   *else
     *set n n-1
     *gosub check_loop
@@ -62,7 +62,7 @@
     *set action_5 true
     *line_break
     第${n}位說，『我叫卡蘿，我會將食物煮成佳餚，每次可以煮 2 份食物。』
-    *gosub check_loop
+    *goto check_loop
   *else
     *set n n-1
     *gosub check_loop

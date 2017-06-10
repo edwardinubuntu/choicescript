@@ -36,13 +36,13 @@
     *set has_gathering true
     *goto_scene gathering  
   #前院檢查柵欄
-    *gosub colony_border
+    *goto colony_border
   *selectable_if (current_colony_zombies_count>0) #外圍攻擊殭屍
     *goto_scene kill_zombie
   #後院廢棄物堆
-    *gosub colony_backyard
+    *goto colony_backyard
   #到食物儲藏室
-    *gosub food_shelf_room  
+    *goto food_shelf_room  
   #離開避難所，外出行動
     *goto_scene area_move   
   #休息，本日結束
@@ -61,6 +61,7 @@
 *choice
   *if ((tool_for_player > 0) and can_build_barricade) #用工具蓋柵欄
     *set current_colony_barricade_count current_colony_barricade_count+build_barricade_per_time
+    *set tool_for_player tool_for_player-1
     *set current_trash current_trash+trash_increase
     你搭建了 ${build_barricade_per_time} 個柵欄，將工具丟到垃圾堆，讓避難所總共有了 ${current_colony_barricade_count} 柵欄。
     *gosub finish_build_barricade
@@ -68,7 +69,7 @@
     *set action_per_round action_per_round-1
     *set current_colony_barricade_count current_colony_barricade_count+build_barricade_per_time
     你搭建了 ${build_barricade_per_time} 個柵欄，讓避難所總共有了 ${current_colony_barricade_count} 柵欄。
-    *gosub finish_build_barricade 
+    *goto finish_build_barricade 
   #回到避難所大廳
     *goto_scene colony
 
@@ -86,9 +87,9 @@
     *if (current_trash<0)
       *set current_trash 0
     你耗費了些許時間移除了 ${remove_trash_count} 個垃圾，讓垃圾堆剩下 ${current_trash} 個垃圾。
-    *gosub colony_backyard
+    *goto colony_backyard
   #回到避難所大廳
-    *goto_scene colony
+    *goto start
 
 *label back_to_colony
 *choice
@@ -121,11 +122,12 @@
     
     *set current_colony_food current_colony_food+give_food
     *set food_for_player food_for_player-give_food
-    *set current_trash current_trash+trash_increase
+    *if (give_food>0)
+      *set current_trash current_trash+trash_increase
 
-    *gosub finish_give_food
+    *goto finish_give_food
   #返回避難所大廳
-    *goto_scene colony
+    *goto start
     
 *label finish_build_barricade
 *choice
@@ -133,7 +135,9 @@
     *gosub colony_border
         
 *label finish_give_food
-你提供了 ${give_food} 份食物到食物供給堆上，且丟了 ${trash_increase} 份垃圾。
+你提供了 ${give_food} 份食物到食物供給堆上。
+*if (give_food > 0)
+  丟了 ${trash_increase} 份垃圾。
 *choice
   #完成
     *gosub food_shelf_room

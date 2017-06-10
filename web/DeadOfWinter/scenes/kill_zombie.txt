@@ -66,7 +66,7 @@
     *set number_kill 1
     *set will_hurt false
     *set has_use_knife true
-    *gosub kill_zombie_in_area     
+    *goto kill_zombie_in_area     
   #返回
     *if (user_stay_area = "colony") 
       *goto_scene colony
@@ -83,18 +83,18 @@
   *rand die_roll move_die_min move_die_max
   *if (die_roll<=move_safe_below)
     完美擊殺。
-    *gosub kill_result
+    *goto kill_result
   *elseif (die_roll>move_safe_below) and (die_roll<=move_hurt)
     *if (lose_blood < 2)
       *set lose_blood lose_blood+1 
       你也失去 1 點傷害。
-      *gosub kill_result
+      *goto kill_result
     *else
       *set lose_blood 0
       *temp lose_morale 10
       *set Morale Morale-lose_morale
       你也被殭屍攻擊受到傷害，但是因為受傷嚴重，失去了 ${lose_morale} 點情緒。
-      *gosub kill_result
+      *goto kill_result
   *elseif (die_roll=move_hurt_kill)
     *set lose_blood 0
     *temp lose_morale 10

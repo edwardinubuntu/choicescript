@@ -22,7 +22,7 @@
 
 var isRhino = false;
 var iterations = 10;
-var gameName = "mygame";
+var gameName = "DeadOfWinter";
 var randomSeed = 0;
 var delay = false;
 var showCoverage = true;
