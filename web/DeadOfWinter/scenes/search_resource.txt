@@ -1,5 +1,4 @@
 *label start
-
 *temp items_get  ""
 *temp area_name ""
 
