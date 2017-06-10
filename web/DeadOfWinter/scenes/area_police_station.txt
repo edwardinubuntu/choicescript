@@ -2,6 +2,7 @@
 *image police_station.JPG
 警察局
 
+架上櫃子被推得東倒西歪，抽屜有些上鎖有些被打開但是淨空。以警察局來推敲，這裏以前會許有些武器、汽油、工具。探索看看才知道了。
 這區總共有 ${max_police_station_entrance_count} 個出入口，擠了 ${current_police_station_zombies_count} 個殭屍，目前搭建了 ${current_police_station_barricade_count} 個柵欄。
 
 *temp area "police station"

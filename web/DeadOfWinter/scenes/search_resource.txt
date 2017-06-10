@@ -1,15 +1,21 @@
 *label start
 *temp items_get  ""
 *temp area_name ""
+*temp area_have ""
 
 *if (user_stay_area = "police station")
     *set area_name "警察局"
+    *set area_have "架上櫃子被推得東倒西歪，抽屜有些上鎖有些被打開但是淨空。以警察局來推敲，這裏以前會許有些武器、汽油、工具。探索看看才知道了。"
 *if (user_stay_area = "grocery store")
     *set area_name "雜貨店"
+    *set area_have "雜貨店上面的招牌與架上商品標籤寫著，這地方以前是販售過食物、日常工具、醫療用品，現在還剩下多少就要探索看看了。"
 *if (user_stay_area = "gas station")
     *set area_name "加油站"
+    *set area_have "加油站外幾座加油台似乎還有燃料，店裡面招牌與架上商品標籤寫著，這地方以前是販售過日常工具與食物。"
 
 ${area_name} 
+*line_break
+${area_have} 
 *choice
   *selectable_if (action_per_round>0) #一般搜索
     *if (user_stay_area = "police station")

@@ -40,6 +40,8 @@
   *if (has_gathering = false) #認識所有倖存者(只有1次)
     *set has_gathering true
     *goto_scene gathering  
+  #查看本日危機
+    *goto_scene thread
   #前院檢查柵欄
     *goto colony_border
   *selectable_if (current_colony_zombies_count>0) #外圍攻擊殭屍

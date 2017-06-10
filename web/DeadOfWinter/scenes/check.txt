@@ -20,13 +20,42 @@
   *temp lose_morale 10
   *set Morale Morale-lose_morale
   環境非常的骯髒與污染不衛生，失去了 ${lose_morale} 點情緒，剩下 ${Morale} 點情緒。
-  *goto round_turn_zombie_increasing
+  *goto check_thread
 *if (current_trash <= 10)
   環境尚可，垃圾還不多。
-  *goto round_turn_zombie_increasing
-
+  *goto check_thread
+  
+*label check_thread
+*line_break  
+檢查本日危機 
+*if (threat_food_provide<threat_food_need)
+  *set Morale Morale-treat_take_morale
+  食物不足，失去了 ${treat_take_morale} 點情緒，剩下 ${Morale} 點情緒。
+*if (threat_food_provide >= (threat_food_need+2))
+  *set Morale Morale+treat_take_morale
+  食物充足，增加了 ${treat_take_morale} 點情緒，還有 ${Morale} 點情緒。
+*if (threat_medicene_provide<threat_medicene_need)
+  *set Morale Morale-treat_take_morale
+  藥品不足，失去了 ${treat_take_morale} 點情緒，剩下 ${Morale} 點情緒。
+*if (threat_medicene_provide >= (threat_medicene_need+2))
+  *set Morale Morale+treat_take_morale
+  藥品充足，增加了 ${treat_take_morale} 點情緒，還有 ${Morale} 點情緒。
+*set threat_food_need 0
+*set threat_food_provide 0
+*set threat_medicene_need 0
+*set threat_medicene_provide 0
+*set threat_tool_need 0
+*set threat_tool_provide 0
+*set threat_fuel_need 0
+*set threat_fuel_provide 0
+*rand die_roll 1 2
+*set treat_during_per_round die_roll
+*if (treat_during_per_round = 1)
+    *set threat_food_need 2
+*if (treat_during_per_round = 2)
+  *set threat_medicene_need 2
+*line_break 
 *label round_turn_zombie_increasing  
-*line_break
 *temp round_turn_zombie_increase round_turn_zombie_need
 *set current_colony_zombies_count current_colony_zombies_count+round_turn_zombie_increase
 避難所增加了 ${round_turn_zombie_increase} 個殭屍。
@@ -48,7 +77,7 @@
     *if (current_action_survivor<0)
       *set current_action_survivor 0
     *goto check_round
-
+*line_break 
 *comment game check
 *temp win_the_game false
 *if (scence_play = "A")
@@ -63,10 +92,8 @@
 *if (scence_play = "C")
   *if ((((less_police_zombie_count >= current_police_station_zombies_count)) and (less_gas_station_zombie_count >= current_gas_station_zombies_count)) and (less_grocery_zombie_count >= current_grocery_store_zombies_count ))
     *set win_the_game true
-   
 *if (win_the_game)
   *goto check_achievement
-
 *label check_round
 *line_break
 *comment Check round

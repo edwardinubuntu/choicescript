@@ -24,6 +24,7 @@
   area_police_station
   area_gas_station
   area_grocery_store
+  thread
   winning
   ending
   death
@@ -42,7 +43,16 @@
 *create move_safe_below 8
 *create move_hurt 11
 *create move_hurt_kill 12
-
+*create treat_during_per_round 0
+*create treat_take_morale 10
+*create threat_food_need 0
+*create threat_food_provide 0
+*create threat_medicene_need 0
+*create threat_medicene_provide 0
+*create threat_tool_need 0
+*create threat_tool_provide 0
+*create threat_fuel_need 0
+*create threat_fuel_provide 0
 *create sscence_play 0
 
 *comment  Winning stat
@@ -186,4 +196,4 @@ either express or implied.
     
 *label checkpoint_save
 *set save_load true
-*goto_scene savegame
+*goto_scene save_game

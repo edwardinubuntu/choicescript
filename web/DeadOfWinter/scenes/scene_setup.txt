@@ -18,6 +18,12 @@
   *set tool_for_player 1
   *set medicine_for_player 1
   *set action_per_round current_action_survivor+1
+  *rand die_roll 1 2
+  *set treat_during_per_round die_roll
+  *if (treat_during_per_round = 1)
+    *set threat_food_need 2
+  *if (treat_during_per_round = 2)
+    *set threat_medicene_need 2
   打造牢固的家園
   
   你跟女士說，我可以幫你們探索每一個場所都蓋好 ${needed_each_area_barricade_count} 組防禦柵欄，以及在避難所打造 ${needed_colony_barricade_count} 組防禦柵欄。
@@ -35,6 +41,12 @@
   *set fuel_for_player 1
   *set tool_for_player 1
   *set action_per_round current_action_survivor+1
+  *rand die_roll 1 2
+  *set treat_during_per_round die_roll
+  *if (treat_during_per_round = 1)
+    *set threat_food_need 2
+  *if (treat_during_per_round = 2)
+    *set threat_medicene_need 2
   人多食寡
   
   你跟女士說，有我的加入，我會積極配合，大家一起生存 ${round_need_to_play} 天。
@@ -58,6 +70,12 @@
   *set food_for_player 2
   *set fuel_for_player 1
   *set tool_for_player 1
+  *rand die_roll 1 2
+  *set treat_during_per_round die_roll
+  *if (treat_during_per_round = 1)
+    *set threat_food_need 2
+  *if (treat_during_per_round = 2)
+    *set threat_medicene_need 2
   殺死殭屍群
   
   你跟女士說，我們如果能以這避難所為基地，像外附近區域做探索與佔領，這樣我們資源會比較充裕。
