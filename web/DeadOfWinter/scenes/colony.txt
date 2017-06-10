@@ -1,5 +1,5 @@
 *label start
-*image colony.JPG
+*image colony2.JPG
 *set round_turn_food_need round((current_helpless_survivor + current_action_survivor) / 2)
 *set round_turn_zombie_need round_turn_food_need
 第 ${round_play+1} 日，避難所大廳
@@ -31,6 +31,11 @@
 *set user_stay_area area
 *temp trash_increase 1
 
+*if (action_per_round > 0)
+  還有 ${action_per_round} 次行動點，你打算怎麼做？
+*if (action_per_round <= 0)
+  沒有行動了，還可以做一些事情，或者選擇休息，本日結束。
+  
 *choice
   *if (has_gathering = false) #認識所有倖存者(只有1次)
     *set has_gathering true
@@ -42,7 +47,9 @@
   #後院廢棄物堆
     *goto colony_backyard
   #到食物儲藏室
-    *goto food_shelf_room  
+    *goto food_shelf_room
+  #到醫護室
+    *goto heal_room  
   #離開避難所，外出行動
     *goto_scene area_move   
   #休息，本日結束
@@ -95,6 +102,28 @@
 *choice
   #回到避難所大廳
     *goto_scene colony
+    
+*label heal_room
+醫護室
+
+*if (lose_blood <= 0)
+  目前一切尚可，狀況良好。
+*if (lose_blood > 0)
+  你有些許受傷，建議趕緊醫療。
+
+*if (medicine_for_player <= 0)
+  查看了隨身醫藥用品，空的。無法在此醫療。  
+*if (medicine_for_player > 0)
+  目前還有 ${medicine_for_player} 份醫療用品，可以在此醫療。
+
+*choice
+  *selectable_if ((medicine_for_player > 0) and (lose_blood > 0)) #醫療自己
+    *set lose_blood lose_blood-1
+    *set medicine_for_player medicine_for_player-1
+    *set current_trash current_trash+trash_increase
+    *goto finish_heal
+  #返回避難所大廳
+    *goto start
 
 *label food_shelf_room
 
@@ -141,6 +170,12 @@
 *choice
   #完成
     *gosub food_shelf_room
+
+*label finish_heal
+花費了 1 個藥品，減少了傷口疼痛。丟了 ${trash_increase} 份垃圾。
+*choice
+  #完成
+    *gosub heal_room  
     
 *label finish_cook_food
 花費了 1 次行動，提供了 2 份食物到食物供給堆上。
