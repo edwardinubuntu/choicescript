@@ -21,7 +21,7 @@
   *set Morale Morale-lose_morale
   環境非常的骯髒與污染不衛生，失去了 ${lose_morale} 點情緒，剩下 ${Morale} 點情緒。
   *goto round_turn_zombie_increasing
-*else
+*if (current_trash <= 10)
   環境尚可，垃圾還不多。
   *goto round_turn_zombie_increasing
 
