@@ -31,7 +31,7 @@
 *if (threat_food_provide<threat_food_need)
   *set Morale Morale-treat_take_morale
   食物不足，失去了 ${treat_take_morale} 點情緒，剩下 ${Morale} 點情緒。
-*if (threat_food_provide >= threat_food_need)
+*if ((treat_during_per_round = 1) and (threat_food_provide >= threat_food_need))
   食物充足。
   *if (threat_food_provide >= (threat_food_need + 2))
     *set Morale Morale+treat_take_morale
@@ -39,7 +39,7 @@
 *if (threat_medicene_provide<threat_medicene_need)
   *set Morale Morale-treat_take_morale
   藥品不足，失去了 ${treat_take_morale} 點情緒，剩下 ${Morale} 點情緒。
-*if (threat_medicene_provide >= threat_medicene_need)
+*if ((treat_during_per_round = 2) and (threat_medicene_provide >= threat_medicene_need))
   藥品充足。
   *if (threat_medicene_provide >= (threat_medicene_need+2))
     *set Morale Morale+treat_take_morale
@@ -47,7 +47,7 @@
 *if (threat_tool_provide<threat_tool_need)
   *set Morale Morale-treat_take_morale
   工具不足，失去了 ${treat_take_morale} 點情緒，剩下 ${Morale} 點情緒。
-*if (threat_tool_provide >= threat_tool_need)
+*if ((treat_during_per_round = 3) and (threat_tool_provide >= threat_tool_need))
   工具充足。
   *if (threat_tool_provide >= (threat_tool_need+2))
     *set Morale Morale+treat_take_morale
@@ -55,7 +55,7 @@
 *if (threat_fuel_provide<threat_fuel_need)
   *set Morale Morale-treat_take_morale
   燃料不足，失去了 ${treat_take_morale} 點情緒，剩下 ${Morale} 點情緒。
-*if (threat_fuel_provide >= threat_fuel_need)
+*if ((treat_during_per_round = 4) and (threat_fuel_provide >= threat_fuel_need))
   燃料充足。
   *if (threat_fuel_provide >= (threat_fuel_need+2))
     *set Morale Morale+treat_take_morale
