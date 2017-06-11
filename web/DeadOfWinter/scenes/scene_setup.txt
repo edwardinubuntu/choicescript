@@ -24,7 +24,7 @@
     *set threat_food_need 1
   *if (treat_during_per_round = 2)
     *set threat_medicene_need 1
-  打造牢固的家園
+  [b]打造牢固的家園[/b]
   
   你跟女士說，我可以幫你們探索每一個場所都蓋好 ${needed_each_area_barricade_count} 組防禦柵欄，以及在避難所打造 ${needed_colony_barricade_count} 組防禦柵欄。
     
@@ -42,7 +42,7 @@
   *set tool_for_player 1
   *set medicine_for_player 1
   *set action_per_round current_action_survivor+1
-  人多食寡
+  [b]人多食寡[/b]
   
   你跟女士說，有我的加入，我會積極配合，大家一起生存 ${round_need_to_play} 天。
     
@@ -66,7 +66,7 @@
   *set medicine_for_player 1
   *set fuel_for_player 1
   *set tool_for_player 1
-  殺死殭屍群
+  [b]殺死殭屍群[/b]
   
   你跟女士說，我們如果能以這避難所為基地，像外附近區域做探索與佔領，這樣我們資源會比較充裕。
     
@@ -81,14 +81,15 @@
   *set current_helpless_survivor 1
   *set current_action_survivor 2
   *set current_colony_zombies_count 0
-  *set current_grocery_store_zombies_count 10
-  *set current_gas_station_zombies_count 10
-  *set current_police_station_zombies_count 10
+  *set current_grocery_store_zombies_count max_grocery_store_entrance_count
+  *set current_gas_station_zombies_count max_gas_station_entrance_count
+  *set current_police_station_zombies_count max_police_station_entrance_count
+  *set current_hospital_zombies_count max_hospital_entrance_count
   *set action_per_round current_action_survivor+1
   *set food_for_player 1
   *set medicine_for_player 1
-  *set need_medicene_count 10
-  極度探索
+  *set need_medicene_count 5
+  [b]極度探索[/b]
   
   女士說，我叫克蘿伊，我們的夥伴受傷非常嚴重，我們需要使用 ${need_medicene_count} 份藥物，你有辦法外出拿到嗎？
     

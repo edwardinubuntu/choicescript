@@ -1,6 +1,5 @@
 *label start
-*image hospital.JPG
-醫院
+[b]醫院[/b]
 
 醫院以前是提供病人傷患看診資料地方，所以這邊藥物比較多，可以容易在這邊找到藥品、日常工具，現在還剩下多少就要探索看看了。
 *line_break
@@ -19,6 +18,7 @@
 
 *choice
   *if ((is_moving_parkour = true) and (action_per_round>0)) #跑酷搜索
+    *goto_scene search_resource
   *selectable_if ((action_per_round>0) and (is_not_full and (resource > 0))) #搜索
     *goto_scene search_resource
   *selectable_if ((action_per_round>0) and (current_hospital_barricade_count<max_hospital_entrance_count)) #蓋柵欄
