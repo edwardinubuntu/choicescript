@@ -1,5 +1,7 @@
 主要目標
 *line_break
+*if (need_medicene_count > 0)
+  在避難所藥物 ${current_colony_medicine} / ${need_medicene_count}個。
 *if (needed_colony_barricade_count > 0 ) 
     在避難所建置 ${current_colony_barricade_count} / ${needed_colony_barricade_count} 個柵欄。
 *if (needed_police_station_barricade_count > 0 ) 
@@ -60,5 +62,7 @@
   text addition_food_get 額外找食物
   text addition_medicine_get 額外找藥物
   text is_cooking_mom 廚師
+  text is_moving_parkour 跑酷在搜索時候不會被殭屍擋住
+  text can_extra_search 額外探索
   
 

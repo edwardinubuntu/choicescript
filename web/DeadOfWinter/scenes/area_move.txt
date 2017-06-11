@@ -6,7 +6,7 @@
 
 *temp move_to
 *set move_to  "no where"
-
+你打算去哪呢？
 *choice
   #前往警察局
     *set move_to "police station"
@@ -16,6 +16,9 @@
     *goto move_to
   #前往雜貨店
     *set move_to "grocery store"
+    *goto move_to  
+  #前往醫院
+    *set move_to "hospital"
     *goto move_to  
   #返回避難所
     *set move_to "colony"
@@ -62,6 +65,8 @@
       *goto_scene area_grocery_store
     *elseif (move_to = "gas station") 
       *goto_scene area_gas_station
+    *elseif (move_to = "hospital") 
+      *goto_scene area_hospital
     *elseif (move_to = "colony")
       *goto_scene colony
     *else

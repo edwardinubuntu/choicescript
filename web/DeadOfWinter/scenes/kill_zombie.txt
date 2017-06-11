@@ -16,6 +16,9 @@
 *if (user_stay_area = "police station")
   *set area_name "警察局"
   *set area_zombies_count {current_police_station_zombies_count}
+*if (user_stay_area = "hospital")
+  *set area_name "醫院"
+  *set area_zombies_count {current_hospital_zombies_count}
 
 *temp number_kill
 *temp will_hurt true  
@@ -40,7 +43,7 @@
   *line_break
   使用小刀，不會受傷，耗用行動。
   
-
+你打算怎麼攻擊呢？
 *choice
   *selectable_if (action_per_round>0) #一般攻擊
     *set number_kill kill_zombie_count
@@ -76,6 +79,8 @@
       *goto_scene area_grocery_store
     *if (user_stay_area = "gas station") 
       *goto_scene area_gas_station
+    *if (user_stay_area = "hospital") 
+      *goto_scene area_hospital
       
 *label kill_zombie_in_area
 殺死了${number_kill}個殭屍。
@@ -120,6 +125,9 @@
       *goto start
     *if (user_stay_area = "gas station") 
       *set current_gas_station_zombies_count area_zombies_count
+      *goto start
+    *if (user_stay_area = "hospital") 
+      *set current_hospital_zombies_count area_zombies_count
       *goto start
     *else
       *set current_colony_zombies_count area_zombies_count

@@ -1,0 +1,63 @@
+*label start
+
+*if (treat_during_per_round = 1)
+  食物危機
+  
+  我們本日需要 ${threat_food_need} 份食物，如果沒有達到指定數量會扣 ${treat_take_morale} 點情緒。如果提供食物 ${threat_food_need+2} 份可以加 ${treat_take_morale} 點情緒。
+  目前累積 ${threat_food_provide} 份。
+  
+*if (treat_during_per_round = 2)
+  醫療短缺
+  
+  我們本日需要 ${threat_medicene_need} 份藥品，如果沒有達到指定數量會扣 ${treat_take_morale} 點情緒。如果提供藥品 ${threat_medicene_need+2} 份可以加 ${treat_take_morale} 點情緒。
+  
+  目前累積 ${threat_medicene_provide} 份。
+  
+*if (treat_during_per_round = 3)
+  工具短缺
+  
+  我們本日需要 ${threat_tool_need} 份藥品，如果沒有達到指定數量會扣 ${treat_take_morale} 點情緒。如果提供藥品 ${threat_tool_need+2} 份可以加 ${treat_take_morale} 點情緒。
+  
+  目前累積 ${threat_tool_provide} 份。
+
+*if (treat_during_per_round = 4)
+  寒冷冬天
+  
+  我們本日需要 ${threat_fuel_need} 份燃料來取暖，如果沒有達到指定數量會扣 ${treat_take_morale} 點情緒。如果提供燃料 ${threat_fuel_need+2} 份可以加 ${treat_take_morale} 點情緒。
+  
+  目前累積 ${threat_fuel_provide} 份。
+    
+*label provided_resource
+*choice
+  #繳交
+    *if (treat_during_per_round = 1)
+      你擁有 ${food_for_player} 份隨行食物，想要提供多少呢？
+      *temp give_food 0
+      *input_number give_food 0 food_for_player
+      *set food_for_player food_for_player-give_food
+      *set threat_food_provide give_food
+
+    *if (treat_during_per_round = 2)
+      你擁有 ${medicine_for_player} 份隨行藥品，想要提供多少呢？
+      *temp give_medicene 0
+      *input_number give_medicene 0 medicine_for_player
+      *set medicine_for_player medicine_for_player-give_medicene
+      *set threat_medicene_provide give_medicene
+      
+    *if (treat_during_per_round = 3)
+      你擁有 ${tool_for_player} 份工具，想要提供多少呢？
+      *temp give_tool 0
+      *input_number give_tool 0 give_tool
+      *set tool_for_player tool_for_player-give_tool
+      *set threat_tool_provide give_tool
+      
+    *if (treat_during_per_round = 4)
+      你擁有 ${fuel_for_player} 份燃料，想要提供多少呢？
+      *temp give_fuel 0
+      *input_number give_fuel 0 medicine_for_player
+      *set fuel_for_player fuel_for_player-give_fuel
+      *set threat_fuel_provide give_fuel
+    
+    *goto start
+  #返回避難所大廳
+    *goto_scene colony

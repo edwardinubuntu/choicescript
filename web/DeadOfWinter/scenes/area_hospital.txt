@@ -1,0 +1,40 @@
+*label start
+*image hospital.JPG
+醫院
+
+醫院以前是提供病人傷患看診資料地方，所以這邊藥物比較多，可以容易在這邊找到藥品、日常工具，現在還剩下多少就要探索看看了。
+*line_break
+這區總共有 ${max_hospital_entrance_count} 個出入口，擠了 ${current_hospital_zombies_count} 個殭屍，目前搭建了 ${current_hospital_barricade_count} 個柵欄。
+
+*temp area "hospital"
+*set user_stay_area area
+
+*temp resource resource_grocery_store_left
+*temp is_not_full (current_hospital_zombies_count<max_hospital_entrance_count)
+
+*if (action_per_round > 0)
+  還有 ${action_per_round} 次行動點，你打算怎麼做？
+*if (action_per_round <= 0)
+  沒有行動了，還可以做一些事情，或者選擇休息，本日結束。
+
+*choice
+  *if ((is_moving_parkour = true) and (action_per_round>0)) #跑酷搜索
+  *selectable_if ((action_per_round>0) and (is_not_full and (resource > 0))) #搜索
+    *goto_scene search_resource
+  *selectable_if ((action_per_round>0) and (current_hospital_barricade_count<max_hospital_entrance_count)) #蓋柵欄
+    *set action_per_round action_per_round-1
+    *set current_hospital_barricade_count current_hospital_barricade_count+build_barricade_per_time
+    你搭建了 ${build_barricade_per_time} 個柵欄，這區總共有了 ${current_hospital_barricade_count} 柵欄。
+  	
+    *goto build_barricade
+  #攻擊殭屍
+    *goto_scene kill_zombie
+  #離開此處
+    *goto_scene area_move    
+  #休息，回合結束
+    *goto_scene check
+    
+*label build_barricade
+*choice
+  #建置完成
+    *goto start
