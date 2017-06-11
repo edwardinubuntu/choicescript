@@ -21,9 +21,9 @@
   目前累積 ${threat_tool_provide} 份。
 
 *if (treat_during_per_round = 4)
-  燃料短缺
+  寒冷冬天
   
-  我們本日需要 ${threat_fuel_need} 份藥品，如果沒有達到指定數量會扣 ${treat_take_morale} 點情緒。如果提供藥品 ${threat_fuel_need+2} 份可以加 ${treat_take_morale} 點情緒。
+  我們本日需要 ${threat_fuel_need} 份燃料來取暖，如果沒有達到指定數量會扣 ${treat_take_morale} 點情緒。如果提供燃料 ${threat_fuel_need+2} 份可以加 ${treat_take_morale} 點情緒。
   
   目前累積 ${threat_fuel_provide} 份。
     
