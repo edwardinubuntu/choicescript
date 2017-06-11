@@ -40,6 +40,7 @@
   *set food_for_player 2
   *set fuel_for_player 1
   *set tool_for_player 1
+  *set medicine_for_player 1
   *set action_per_round current_action_survivor+1
   人多食寡
   
@@ -62,6 +63,7 @@
   *set less_gas_station_zombie_count less_each_area_zombie_count
   *set action_per_round current_action_survivor+1
   *set food_for_player 2
+  *set medicine_for_player 1
   *set fuel_for_player 1
   *set tool_for_player 1
   殺死殭屍群
@@ -84,6 +86,7 @@
   *set current_police_station_zombies_count 10
   *set action_per_round current_action_survivor+1
   *set food_for_player 1
+  *set medicine_for_player 1
   *set need_medicene_count 10
   極度探索
   
