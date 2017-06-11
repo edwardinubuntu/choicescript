@@ -19,6 +19,7 @@
 
 *choice
   *if ((is_moving_parkour = true) and (action_per_round>0)) #跑酷搜索
+    *goto_scene search_resource
   *selectable_if ((action_per_round>0) and (is_not_full and (resource > 0))) #搜索
     *goto_scene search_resource
   *selectable_if ((action_per_round>0) and (current_grocery_store_barricade_count<max_grocery_store_entrance_count)) #蓋柵欄
