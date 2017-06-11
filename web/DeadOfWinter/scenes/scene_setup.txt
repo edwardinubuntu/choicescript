@@ -87,7 +87,7 @@
   *set action_per_round current_action_survivor+1
   *set food_for_player 1
   *set medicine_for_player 1
-  *set need_medicene_count 10
+  *set need_medicene_count 5
   極度探索
   
   女士說，我叫克蘿伊，我們的夥伴受傷非常嚴重，我們需要使用 ${need_medicene_count} 份藥物，你有辦法外出拿到嗎？
