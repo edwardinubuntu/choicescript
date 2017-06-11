@@ -2,13 +2,21 @@
 *image colony2.JPG
 *set round_turn_food_need round((current_helpless_survivor + current_action_survivor) / 2)
 *set round_turn_zombie_need round_turn_food_need
-第 ${round_play+1} 日，避難所大廳
+[b]第 ${round_play+1} 日，避難所大廳[/b]
 
 有 ${current_helpless_survivor} 位無助幸存者和 ${current_action_survivor} 幸存者在這邊。
 *if (current_colony_food>=round_turn_food_need)
   在食物儲藏室的食物供給足夠。
 *if (current_colony_food<round_turn_food_need)
   在食物儲藏室的食物供給不足，要飢餓了，我們該怎麼辦才好。
+*if (treat_during_per_round = 1)
+  本日食物危機需要 ${threat_food_need} 份食物，目前避難所累積 ${threat_food_provide} 份。  
+*if (treat_during_per_round = 2)
+  本日醫療短缺需要 ${threat_medicene_need} 份藥品，目前避難所累積 ${threat_medicene_provide} 份。
+*if (treat_during_per_round = 3)
+  本日工具短缺需要 ${threat_tool_need} 份藥品，目前避難所累積 ${threat_tool_provide} 份。
+*if (treat_during_per_round = 4)
+  本日燃料短缺需要 ${threat_fuel_need} 份燃料來取暖，目前避難所累積 ${threat_fuel_provide} 份。
 *comment 前院狀況
 *line_break
 往窗外看出去，前面庭院廣場到圍牆，
@@ -60,7 +68,7 @@
     *goto_scene check
 
 *label colony_border
-前院
+[b]前院[/b]
 
 昨天這裡還是個難民營，今天就成了有模有樣的城鎮。如今人們稱這裡為避難所時的語氣已經沒有當時的挖苦與諷刺，它確實庇護著我們。唯一問題是，我們所有辛勤工作製造聲音，也給我們吸引來了大群的殭屍。每天都在我們的牆外遊蕩，伺機尋找新鮮的肉食。
 
@@ -85,7 +93,7 @@
     *goto_scene colony
 
 *label colony_backyard
-後院
+[b]後院[/b]
 
 *if (current_trash>0)
   垃圾堆開始有垃圾，垃圾填滿了 ${current_trash/max_trash_count}  整個空間，希望垃圾別滿，不然環境的衛生就會出問題。
@@ -108,7 +116,7 @@
     *goto_scene colony
     
 *label heal_room
-醫護室
+[b]醫護室[/b]
 
 *if (lose_blood <= 0)
   目前一切尚可，狀況良好。
@@ -141,8 +149,7 @@
     *goto start
 
 *label food_shelf_room
-
-食物供給堆
+[b]食物供給堆[/b]
 
 我們有 ${current_helpless_survivor+current_action_survivor} 位生存者在避難所，在儲藏架上食物只有 ${current_colony_food} 份。算了一下每天都需要用到 ${round_turn_food_need} 份食物。
 *if(current_colony_food<round_turn_food_need)

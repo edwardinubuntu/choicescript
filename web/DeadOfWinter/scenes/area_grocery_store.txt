@@ -1,6 +1,5 @@
 *label start
-*image grocery_store.JPG
-雜貨店
+[b]雜貨店[/b]
 
 雜貨店上面的招牌與架上商品標籤寫著，這地方以前是販售過食物、日常工具、醫療用品，現在還剩下多少就要探索看看了。
 *line_break

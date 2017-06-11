@@ -1,6 +1,6 @@
 *label start
 *image colie.JPG
-避難所客廳的火爐旁
+[b]避難所客廳的火爐旁[/b]
 *temp action_1 false
 *set kill_zombie_count 1
 *temp action_2 false
@@ -100,7 +100,7 @@
 *label end_check
 *line_break
 *line_break
-克蘿伊說，這幾位倖存者可以跟你一起行動，在這恐怖混亂的外面，多一個幫手在需要的時候，再好不過了。
+克蘿伊說，這幾位倖存者可以跟你一起行動，多一個幫手在需要的時候，再好不過了。
 *choice
   #重新認識
     *goto start

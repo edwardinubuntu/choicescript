@@ -1,6 +1,5 @@
 *label start
-*image gas_station.JPG
-加油站
+[b]加油站[/b]
 
 加油站外幾座加油台似乎還有燃料，店裡面招牌與架上商品標籤寫著，這地方以前是販售過日常工具與食物。
 *if (resource_gas_station_left>0)
