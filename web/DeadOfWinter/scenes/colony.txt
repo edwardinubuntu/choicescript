@@ -136,7 +136,7 @@
     *if (give_medicine>0)
       *set current_trash current_trash+trash_increase
 
-    *goto finish_give_food
+    *goto finish_give_medic
   #返回避難所大廳
     *goto start
 
@@ -185,6 +185,14 @@
 *choice
   #完成
     *gosub food_shelf_room
+    
+*label finish_give_medic
+你提供了 ${give_medicine} 份藥品到架上。
+*if (give_medicine > 0)
+  丟了 ${trash_increase} 份垃圾。
+*choice
+  #完成
+    *gosub heal_room
 
 *label finish_heal
 花費了 1 個藥品，減少了傷口疼痛。丟了 ${trash_increase} 份垃圾。

@@ -20,7 +20,6 @@ ${area_name}
 *line_break
 ${area_have} 
 *line_break
-*line_break
 當隊伍有敏銳度高倖存者，可以協助額外探索物品。
 
 你打算怎麼開始呢？
