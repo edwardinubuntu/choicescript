@@ -12,10 +12,18 @@
 *if (user_stay_area = "gas station")
     *set area_name "加油站"
     *set area_have "加油站外幾座加油台似乎還有燃料，店裡面招牌與架上商品標籤寫著，這地方以前是販售過日常工具與食物。"
+*if (user_stay_area = "hospital")
+    *set area_name "醫院"
+    *set area_have "醫院以前是提供病人傷患看診資料地方，所以這邊藥物比較多，可以容易在這邊找到藥品、日常工具。"
 
 ${area_name} 
 *line_break
 ${area_have} 
+*line_break
+*line_break
+當隊伍有敏銳度高倖存者，可以協助額外探索物品。
+
+你打算怎麼開始呢？
 *choice
   *selectable_if (action_per_round>0) #一般搜索
     *if (user_stay_area = "police station")
@@ -27,7 +35,28 @@ ${area_have}
     *elseif (user_stay_area = "gas station")
       *set area_name "加油站"
       *goto search_gas_station
+    *elseif (user_stay_area = "hospital")
+      *set area_name "資院"
+      *goto search_hospital
     *ending 
+  *selectable_if (((action_per_round>0) and (extra_search = true)) and (can_extra_search = true)) #額外搜索
+    *if (user_stay_area = "police station")
+      *set area_name "警察局"
+      *set extra_search true
+      *goto search_police_station
+    *elseif (user_stay_area = "grocery store")
+      *set area_name "雜貨店"
+      *set extra_search true
+      *goto search_grocery_store
+    *elseif (user_stay_area = "gas station")
+      *set area_name "加油站"
+      *set extra_search true
+      *goto search_gas_station
+    *elseif (user_stay_area = "hospital")
+      *set area_name "醫院"
+      *set extra_search true
+      *goto search_hospital
+    *ending
   #結束搜索
     *if (user_stay_area = "police station") 
       *goto_scene area_police_station
@@ -35,10 +64,12 @@ ${area_have}
       *goto_scene area_grocery_store
     *if (user_stay_area = "gas station") 
       *goto_scene area_gas_station
+    *if (user_stay_area = "hospital") 
+      *goto_scene area_hospital
     *ending
 
 *label item
-你在 ${area_name} 找尋可以用的資源。獲得了 ${items_get} 物品。
+你在 ${area_name} 找尋可以用的資源。獲得了 ${items_get}。
 *set action_per_round action_per_round-1
 你的行動剩下 ${action_per_round}。
 
@@ -51,34 +82,62 @@ ${area_have}
   *rand die_roll 1 10
   *if (die_roll <= 1)
     *set has_rifle 1
-    *set items_get "狙擊槍"
-    *goto item
+    *set items_get "${items_get} 狙擊槍"
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_police_station
+    *else 
+      *goto item
   *elseif (die_roll = 2)
     *set has_pistol 1
-    *set items_get "手槍"
-    *goto item
+    *set items_get "${items_get} 手槍"
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_police_station
+    *else 
+      *goto item
   *elseif (die_roll = 3)
     *set has_shotgun 1
-    *set items_get "散彈槍"
-    *goto item
+    *set items_get "${items_get} 散彈槍"
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_police_station
+    *else 
+      *goto item
   *elseif (die_roll = 4)
     *set has_little_knife has_little_knife+1
-    *set items_get "小刀"
-    *goto item
+    *set items_get "${items_get} 小刀"
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_police_station
+    *else 
+      *goto item
   *elseif (die_roll = 5)
     *set has_telescope 1
-    *set items_get "望遠鏡"
-    *goto item
+    *set items_get "${items_get} 望遠鏡"
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_police_station
+    *else 
+      *goto item
   *elseif (die_roll > 5) and  (die_roll <= 7) 
     *temp tool_get die_roll-5
     *set tool_for_player tool_for_player+tool_get
     *set items_get "${items_get} 工具 ${tool_get}"
-    *goto item
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_police_station
+    *else 
+      *goto item
   *elseif (die_roll > 7) and  (die_roll <= 9) 
     *temp fuel_get die_roll-7
     *set fuel_for_player fuel_for_player+fuel_get
     *set items_get "${items_get} 醫療用品 ${fuel_get}"
-    *goto item
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_police_station
+    *else 
+      *goto item
   *else
     *gosub  find_survior  
   
@@ -89,17 +148,29 @@ ${area_have}
     *temp food_get die_roll
     *set food_for_player food_for_player+food_get
     *set items_get "${items_get} 食物 ${food_get}"
-    *goto item
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_grocery_store
+    *else 
+      *goto item
   *elseif (die_roll > 5) and  (die_roll <= 7) 
     *temp tool_get die_roll-5
     *set tool_for_player tool_for_player+tool_get
     *set items_get "${items_get} 工具 ${tool_get}"
-    *goto item
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_grocery_store
+    *else 
+      *goto item
   *elseif (die_roll > 7) and  (die_roll <= 9) 
     *temp medicine_get die_roll-7
     *set medicine_for_player medicine_for_player+medicine_get
     *set items_get "${items_get} 醫療用品 ${medicine_get}"
-    *goto item
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_grocery_store
+    *else 
+      *goto item
   *else
     *gosub  find_survior  
 
@@ -111,17 +182,63 @@ ${area_have}
     *temp fuel_get die_roll
     *set fuel_for_player fuel_for_player+fuel_get
     *set items_get "${items_get} 燃料 ${fuel_get}"
-    *goto item
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_gas_station
+    *else 
+      *goto item
   *elseif (die_roll > 5) and  (die_roll <= 7) 
     *temp tool_get die_roll-5
     *set tool_for_player tool_for_player+tool_get
     *set items_get "${items_get} 工具 ${tool_get}"
-    *goto item
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_gas_station
+    *else 
+      *goto item
   *elseif (die_roll > 7) and  (die_roll <= 9) 
     *temp food_get die_roll-7
     *set food_for_player food_for_player+food_get
     *set items_get "${items_get} 食物 ${food_get}"
-    *goto item
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_gas_station
+    *else 
+      *goto item
+  *else
+    *gosub  find_survior
+
+*label search_hospital
+*if (action_per_round>0)
+  *set resource_hospital_left resource_hospital_left-1
+  *rand die_roll 1 10
+  *if (die_roll <= 5)
+    *temp medic_get die_roll
+    *set medicine_for_player medicine_for_player+medic_get
+    *set items_get "${items_get} 藥品 ${medic_get}"
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_hospital
+    *else 
+      *goto item
+  *elseif (die_roll > 5) and  (die_roll <= 7) 
+    *temp tool_get die_roll-5
+    *set tool_for_player tool_for_player+tool_get
+    *set items_get "${items_get} 工具 ${tool_get}"
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_hospital
+    *else 
+      *goto item
+  *elseif (die_roll > 7) and  (die_roll <= 9) 
+    *temp food_get die_roll-7
+    *set food_for_player food_for_player+food_get
+    *set items_get "${items_get} 食物 ${food_get}"
+    *if (extra_search = true)
+      *set extra_search false
+      *goto search_hospital
+    *else 
+      *goto item
   *else
     *gosub  find_survior
     

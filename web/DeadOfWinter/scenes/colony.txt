@@ -116,16 +116,27 @@
   你有些許受傷，建議趕緊醫療。
 
 *if (medicine_for_player <= 0)
-  查看了隨身醫藥用品，空的。無法在此醫療。  
+  查看了架上醫藥用品，空的。無法在此醫療。  
 *if (medicine_for_player > 0)
-  目前還有 ${medicine_for_player} 份醫療用品，可以在此醫療。
-
+  目前醫療架上還有 ${current_colony_medicine} 份醫療用品，可以在此醫療。
+*temp give_medicine 0
 *choice
-  *selectable_if ((medicine_for_player > 0) and (lose_blood > 0)) #醫療自己
+  *selectable_if ((current_colony_medicine > 0) and (lose_blood > 0)) #醫療自己
     *set lose_blood lose_blood-1
     *set medicine_for_player medicine_for_player-1
     *set current_trash current_trash+trash_increase
     *goto finish_heal
+  *selectable_if (medicine_for_player > 0) #提供藥品
+    你擁有 ${medicine_for_player} 份隨行藥品，想要提供多少呢？
+
+    *input_number give_medicine 0 medicine_for_player
+    
+    *set current_colony_medicine current_colony_medicine+give_medicine
+    *set medicine_for_player medicine_for_player-give_medicine
+    *if (give_medicine>0)
+      *set current_trash current_trash+trash_increase
+
+    *goto finish_give_food
   #返回避難所大廳
     *goto start
 

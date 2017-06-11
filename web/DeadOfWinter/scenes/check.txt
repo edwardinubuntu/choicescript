@@ -11,7 +11,7 @@
   *set starving starving+1
   *temp lose_morale starving*10
   *set Morale Morale-lose_morale
-  大家挨餓了，失去了 ${lose_morale} 點情緒。
+  大家挨餓了，失去了 ${lose_morale} 點情緒，剩下 ${Morale} 點情緒。。
   *goto check_trash
   
 *label check_trash
@@ -40,6 +40,18 @@
 *if (threat_medicene_provide >= (threat_medicene_need+2))
   *set Morale Morale+treat_take_morale
   藥品充足，增加了 ${treat_take_morale} 點情緒，還有 ${Morale} 點情緒。
+*if (threat_tool_provide<threat_tool_need)
+  *set Morale Morale-treat_take_morale
+  工具不足，失去了 ${treat_take_morale} 點情緒，剩下 ${Morale} 點情緒。
+*if (threat_tool_provide >= (threat_tool_need+2))
+  *set Morale Morale+treat_take_morale
+  工具充足，增加了 ${treat_take_morale} 點情緒，還有 ${Morale} 點情緒。
+*if (threat_fuel_provide<threat_fuel_need)
+  *set Morale Morale-treat_take_morale
+  燃料不足，失去了 ${treat_take_morale} 點情緒，剩下 ${Morale} 點情緒。
+*if (threat_fuel_provide >= (threat_fuel_need+2))
+  *set Morale Morale+treat_take_morale
+  燃料充足，增加了 ${treat_take_morale} 點情緒，還有 ${Morale} 點情緒。
 *set threat_food_need 0
 *set threat_food_provide 0
 *set threat_medicene_need 0
@@ -115,7 +127,8 @@
 *set action_per_round current_action_survivor+1
 *if (has_telescope>0)
  *set action_per_round action_per_round+1
- 
+
+*set extra_search true 
 *set has_use_pistol false
 *set has_use_rifle false
 *set has_use_shotgun false 

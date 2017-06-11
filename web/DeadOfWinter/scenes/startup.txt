@@ -24,6 +24,7 @@
   area_police_station
   area_gas_station
   area_grocery_store
+  area_hospital
   thread
   winning
   ending
@@ -54,18 +55,21 @@
 *create threat_fuel_need 0
 *create threat_fuel_provide 0
 *create sscence_play 0
+*create extra_search true
 
 *comment  Winning stat
 *create needed_colony_barricade_count 0
 *create needed_police_station_barricade_count 0
 *create needed_grocery_store_barricade_count 0
 *create needed_gas_station_barricade_count 0
+*create needed_hospital_barricade_count 0
 
 *create less_colony_zombie_count 99
 *create less_police_zombie_count 10
 *create less_grocery_zombie_count 10
 *create less_gas_station_zombie_count 10
 *create less_each_area_zombie_count 10
+*create less_hospital_zombie_count 10
 
 *create need_medicene_count 0
 
@@ -92,6 +96,11 @@
 *create current_gas_station_barricade_count 0
 *create current_gas_station_zombies_count 0
 *create resource_gas_station_left 20
+
+*create max_hospital_entrance_count 4
+*create current_hospital_barricade_count 0
+*create current_hospital_zombies_count 0
+*create resource_hospital_left 20
 
 *comment Colony
 *create current_helpless_survivor 0
@@ -126,6 +135,7 @@
 *create has_shotgun 0
 *create has_telescope 0
 *create is_moving_parkour false
+*create can_extra_search false
 
 *create can_use_double_kill_per_turn false
 *create has_use_double_kill_skill false

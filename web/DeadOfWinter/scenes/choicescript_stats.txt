@@ -63,5 +63,6 @@
   text addition_medicine_get 額外找藥物
   text is_cooking_mom 廚師
   text is_moving_parkour 跑酷在搜索時候不會被殭屍擋住
+  text can_extra_search 額外探索
   
 

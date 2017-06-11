@@ -13,12 +13,14 @@
 *set is_cooking_mom false
 *temp action_6 false
 *set is_moving_parkour false
+*temp action_7 false
+*set can_extra_search false
 *line_break
 *temp n
 *set n 0
 *label loop
 *set n (n+1)
-*rand die_roll 1 6
+*rand die_roll 1 7
 *if ((die_roll = 1))
   *if ((action_1 = false))
     *set kill_zombie_count 2
@@ -75,6 +77,16 @@
     *set action_6 true
     *line_break
     第${n}位說，『我叫大丹，以前常玩跑酷，派我搜索不會被殭屍群擋住。』
+    *goto check_loop
+  *else
+    *set n n-1
+    *gosub check_loop
+*if (die_roll = 7)
+  *if (action_7 = false)
+    *set can_extra_search true
+    *set action_7 true
+    *line_break
+    第${n}位說，『我叫格林，對於探索有敏銳，可以幫你多探索物品。』
     *goto check_loop
   *else
     *set n n-1
