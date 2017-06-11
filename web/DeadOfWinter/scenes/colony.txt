@@ -115,9 +115,9 @@
 *if (lose_blood > 0)
   你有些許受傷，建議趕緊醫療。
 
-*if (medicine_for_player <= 0)
+*if (current_colony_medicine <= 0)
   查看了架上醫藥用品，空的。無法在此醫療。  
-*if (medicine_for_player > 0)
+*if (current_colony_medicine > 0)
   目前醫療架上還有 ${current_colony_medicine} 份醫療用品，可以在此醫療。
 *temp give_medicine 0
 *choice
