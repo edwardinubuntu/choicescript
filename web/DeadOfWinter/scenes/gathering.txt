@@ -1,5 +1,4 @@
 *label start
-*image colie.JPG
 [b]避難所客廳的火爐旁[/b]
 *temp action_1 false
 *set kill_zombie_count 1
