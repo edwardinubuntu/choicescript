@@ -84,6 +84,7 @@
   *set current_grocery_store_zombies_count 10
   *set current_gas_station_zombies_count 10
   *set current_police_station_zombies_count 10
+  *set current_hospital_zombies_count 10
   *set action_per_round current_action_survivor+1
   *set food_for_player 1
   *set medicine_for_player 1
