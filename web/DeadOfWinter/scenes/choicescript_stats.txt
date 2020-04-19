@@ -33,7 +33,7 @@
   opposed_pair Morale
     情緒
     絕望
-  text current_action_survivor 行動生存者
+  text current_action_survivor 幸存者
   text current_helpless_survivor 無助生存者
   text starving 飢餓程度
   opposed_pair current_trash_full_percent

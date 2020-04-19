@@ -27,7 +27,6 @@
   area_hospital
   thread
   winning
-  ending
   death
   check
 
@@ -104,7 +103,6 @@
 
 *comment Colony
 *create current_helpless_survivor 0
-*create current_action_survivor 0
 *create current_colony_food 0
 *create current_colony_medicine 0
 *create current_trash 0
@@ -169,23 +167,6 @@
   背叛者！隨行至少 1 種武器，至少具有 3 份藥物。
 
 Welcome to your very first ChoiceScript game!
-
-Copyright 2010 by Dan Fabulich.
-
-Dan Fabulich licenses this file to you under the
-ChoiceScript License, Version 1.0 (the "License"); you may
-not use this file except in compliance with the License. 
-You may obtain a copy of the License at
-
-*link http://www.choiceofgames.com/LICENSE-1.0.txt
-
-See the License for the specific language governing
-permissions and limitations under the License.
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-either express or implied.
 
 *page_break
 *image cover.JPG
